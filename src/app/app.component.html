@@ -1,0 +1,37 @@
+<section class="container-fluid ">
+  <section class="row-12 text-secondary d-flex border-end">
+      <nav class="menu d-flex flex-column d-flex flex-column justify-content-between">
+
+          <ul class="nav d-flex flex-column p-2 fs-4 align-items-center gap-2">
+              <!--Icon-->
+              <li><i class="fa-solid fa-star-of-life text-info fs-2"></i></li>
+              <!--Icon-->
+              <!--Calendar-->
+              <li><a href=""><i class="fa-regular fa-calendar mt-5 text-secondary icon_menu"></i></a></li>
+              <!--Paciente-->
+              <li><a href="pacientes/"><i class="fa-solid fa-user-group text-secondary icon_menu"></i></a></li>
+              <!--chat-->
+              <li><a href=""><i class="fa-solid fa-comment-dots text-secondary icon_menu"></i></a></li>
+              <!--Estadistica-->
+              <li><a href=""><i class="fa-solid fa-chart-column text-secondary icon_menu"></i></a></li>
+              <!--Email-->
+              <li><a href=""><i class="fa-regular fa-paper-plane text-secondary icon_menu"></i></a></li>
+              <!--Configuracion-->
+              <li><a href=""><i class="fa-solid fa-gear text-secondary icon_menu"></i></a></li>
+          </ul>
+
+          <ul class="nav d-flex flex-column fs-3 align-items-center gap-2">
+              <li><a href=""><i class="fa-regular fa-circle-question text-secondary icon_menu"></i></a></li>
+              <li><a href=""><i class="fa-regular fa-bell text-secondary icon_menu"></i></a></li>
+              <li><a href=""><i class="fa-regular fa-circle-user text-secondary icon_menu"></i></a></li>
+          </ul>
+
+      </nav>
+
+      <section class="col content_app">
+
+        <router-outlet></router-outlet>
+
+      </section>
+  </section>
+</section>

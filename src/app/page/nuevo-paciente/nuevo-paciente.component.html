@@ -1,0 +1,197 @@
+<form class="container paciente_new" (submit)="handlePatientSubmit($event)">
+  <div class="p-2 paciente_new_header">
+      <h3>Datos del Paciente</h3>
+  </div>
+  <!--primer bloque datos de identificacion-->
+  <div class="row p-3">
+      <!--User Photo-->
+      <div class="col-4 d-flex flex-column align-items-center">
+          <div class="row rounded-circle h-50 w-50">
+              <img src="" alt="" class="col h-100 object-fit rounded-circle">
+          </div>
+          <button class="btn btn-outline-info mt-3">
+              Change Image
+          </button>
+      </div>
+
+      <!--bloque de datos-->
+      <div class="col">
+          <h6 class="row">
+              Comentarios
+          </h6>
+      
+          <div class="row">
+              <textarea name="comentario" id="" cols="30" rows="5" class="col form-control" (input)="handlePatientForm($event)">
+
+              </textarea>
+          </div>
+<!-- -------------------------------------------------------- -->
+          <div class="row mt-3 p-0">
+              <label for="" class="col">
+                  Nombre del Paciente
+                  <input name="nombre" type="text" class="row form-control" (input)="handlePatientForm($event)">
+              </label>
+
+              <label for="" class="col">
+                  Apellidos
+                  <input name="apellidos" type="text" class="row form-control" (input)="handlePatientForm($event)">
+              </label>
+          </div>
+          <!---------------------------------------------------->
+          <div class="row">
+              <label for="" class="col">
+                  Fecha de Nacimiento
+                  <input type="date" name="fecha_nacimiento" class="row form-control" (input)="handlePatientForm($event)">
+              </label>
+
+              <span for="" class="col">
+                  Tipo de Documento
+                  <div class="row d-flex align-items-center p-2">
+                      <label for="" class="col">
+                          Pasaporte
+                          <input type="radio" name="tipo_documento" value="pasaporte" class="col" (input)="handlePatientForm($event)">
+                      </label>
+                      <label for="" class="col">
+                          DNI
+                          <input type="radio" name="tipo_documento" value="dni" class="col" (input)="handlePatientForm($event)">
+                      </label>
+                      <label for="" class="col">
+                          Residencia
+                          <input type="radio" name="tipo_documento" value="residencia" class="col" (input)="handlePatientForm($event)">
+                      </label>
+                  </div>
+              </span>
+          </div>
+          <!---------------------------------------------------->
+
+          <div class="row mt-3 p-0">
+              <label for="" class="col">
+                  Documento de Identidad
+                  <input name="documento_identidad" type="text" class="row form-control" (input)="handlePatientForm($event)">
+              </label>
+
+              <label for="" class="col">
+                  Sexo
+                  <select name="sexo" id="" class="row form-control" (input)="handlePatientForm($event)">
+                      <option selected>n/a</option>
+                      <option selected value="M">Hombre</option>
+                      <option selected value="F">Mujer</option>
+                  </select>
+              </label>
+          </div>
+
+      </div>
+      
+      <div class="row border mt-5"></div>
+      <!--fin del primer bloque-------------------------------------------------------------------------------------------------------------------->
+
+      <div class="row mt-4">
+
+          <h5 class="col-4">
+              Datos de Contacto
+          </h5>
+          
+          <div class="col">
+              <div class="row">
+                  <label for="" class="col">
+                      Telefono
+                      <input type="text" name="telefono" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  <label for="" class="col">
+                      E-mail
+                      <input type="text" name="email" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+              </div>
+
+              <div class="row mt-2">
+                  <label for="" class="col-6">
+                      Telefono adicional
+                      <input type="text" name="telefono_adicional" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+              </div>
+          </div>
+
+      </div>
+      <div class="row border mt-5"></div>
+      <!----------------------------------------------------------------------->
+      <div class="row mt-4">
+
+          <h5 class="col-4">
+              Direccion
+          </h5>
+
+          <div class="col">
+              <div class="row">
+                  <label for="" class="col-6">
+                      Calle
+                      <input type="text" name="calle" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  <label for="" class="col">
+                      Numero
+                      <input type="text" name="numero" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  <label for="" class="col">
+                      Puerta
+                      <input type="text" name="puerta" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+              </div>
+
+              <div class="row mt-2">
+                  <label for="" class="col">
+                      Pais
+                      <input type="text" name="pais" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  <label for="" class="col">
+                      Ciudad
+                      <input type="text" name="ciudad" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  <label for="" class="col">
+                      Codigo Postal
+                      <input type="text" name="cp" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+              </div>
+          </div>
+
+      </div>
+      <!----------------------------------------------------------------------->
+      <div class="row border mt-5"></div>
+
+      <div class="row mt-4">
+
+          <h5 class="col-4">
+              Otros datos
+          </h5>
+
+          <div class="col">
+              <div class="row">
+                  <label for="" class="col-6">
+                      Aseguradora
+                      <input type="text" name="aseguradora" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  <label for="" class="col">
+                      Numero de Seguro Medico
+                      <input type="text" name="numero_seguro" id="" class="row form-control" (input)="handlePatientForm($event)">
+                  </label>
+                  
+              </div>
+
+              <div class="row mt-2">
+                  <label for="" class="col">
+                      Otros Datos
+                      <textarea name="otros_datos" id="" cols="30" rows="5" class="row form-control" (input)="handlePatientForm($event)"></textarea>
+                  </label>
+              </div>
+          </div>
+
+      </div>
+
+      <div class="row d-flex justify-content-center p-5 mt-5">
+          <button type="submit" class="col-2 btn btn-info ">
+              Crear Paciente
+          </button>
+      </div>
+
+      <!----------------------------------------------------------------------->
+  </div>
+
+</form>

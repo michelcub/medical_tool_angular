@@ -1,0 +1,39 @@
+<header class="row w-100 d-flex justify-content-between p-3 align-items-center border-bottom">
+  <h1 class="col fs-3 ms-2">Pacientes</h1>
+  
+  <div class="col-2 p-0 d-flex justify-content-end">
+      <a class="btn btn-info w-75" [routerLink]="'new/'"  >
+          + Añadir Paciente
+      </a>
+  </div>
+  <div class="row w-100">
+    <!--Buscador de usuario-->
+    <div class="col-3 ms-4 mt-2">
+        <div class="input-group mb-2 ">
+            <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass col-2"></i></span>
+            <input type="text" class="form-control" placeholder="Busqueda por nombre, apellido, telf..." aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <span class="row text-center ms-3"> Se han encontrado 187 resultados</span>
+    </div>
+
+    <!--Boton de agregar usuario-->
+    <div class="col-3 mt-2">
+        <select class="form-select form-select " aria-label="Large select example">
+            <option selected>Datos de Contacto</option>
+            <option value="1">Telefono</option>
+            <option value="2">Email</option>
+        </select>
+    </div>
+
+    <!--Boton de agregar usuario-->
+    <div class="col-3 mt-2">
+        <select class="form-select form-select " aria-label="Large select example">
+            <option selected>Ordenar por</option>
+            <option value="1">Telefono</option>
+            <option value="2">Email</option>
+        </select>
+    </div>
+
+
+</div>
+</header>
