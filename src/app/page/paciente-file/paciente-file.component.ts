@@ -23,7 +23,7 @@ export class PacienteFileComponent implements OnInit {
     fetch(enviroments['route-api']+ `/pacientes/${id}/`, {
       headers: {
         'Aplication-Type': 'application/json',
-        //'Authorization': 'Bearer ' + localStorage.getItem('token')
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
     .then(response => response.json())
