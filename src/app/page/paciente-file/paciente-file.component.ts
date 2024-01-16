@@ -1,14 +1,20 @@
+import { PacienteTabsComponent } from './../../components/pacientes/paciente-tabs/paciente-tabs.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { enviroments } from '../../../enviroments/enviroments';
+import { UserDetailsComponent } from '../../components/pacientes/user-details/user-details.component';
+import { Paciente } from '../../models/paciente.models';
+
 
 @Component({
   selector: 'app-paciente-file',
   templateUrl: './paciente-file.component.html',
-  styleUrls: ['./paciente-file.component.css']
+  styleUrls: ['./paciente-file.component.css'],
+  standalone: true,
+  imports: [UserDetailsComponent, PacienteTabsComponent],
 })
 export class PacienteFileComponent implements OnInit {
-  paciente = {}
+  paciente : any = {}
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {

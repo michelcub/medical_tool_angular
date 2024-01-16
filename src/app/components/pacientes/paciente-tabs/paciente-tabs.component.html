@@ -1,0 +1,38 @@
+<section class="col-12">
+  
+
+  <ul class="nav nav-tabs row-11 d-flex justify-content-center mt-5" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="historia-tab" data-bs-toggle="tab" data-bs-target="#historia-tab-pane" type="button" role="tab" aria-controls="historia-tab-pane" aria-selected="true">Historial Clinico (98)</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="citas-tab" data-bs-toggle="tab" data-bs-target="#citas-tab-pane" type="button" role="tab" aria-controls="citas-tab-pane" aria-selected="false">Citas(16)</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="archivos-tab" data-bs-toggle="tab" data-bs-target="#archivos-tab-pane" type="button" role="tab" aria-controls="archivos-tab-pane" aria-selected="false">Archivos (4)</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" >Datos del Paciente</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos-tab-pane" type="button" role="tab" aria-controls="pagos-tab-pane" aria-selected="false" ><i class="fa-regular fa-credit-card"></i> Pagos (14)</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="historia-tab-pane" role="tabpanel" aria-labelledby="historia-tab" tabindex="0">
+      <app-paciente-historia></app-paciente-historia>
+    </div>
+    <div class="tab-pane fade" id="citas-tab-pane" role="tabpanel" aria-labelledby="citas-tab" tabindex="0">
+      <app-paciente-citas></app-paciente-citas>
+    </div>
+    <div class="tab-pane fade" id="archivos-tab-pane" role="tabpanel" aria-labelledby="archivos-tab" tabindex="0">
+      <app-paciente-documentos></app-paciente-documentos>
+    </div>
+    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+      <app-paciente-datos></app-paciente-datos>
+    </div>
+    <div class="tab-pane fade" id="pagos-tab-pane" role="tabpanel" aria-labelledby="pagos-tab" tabindex="0">
+      <app-paciente-pagos></app-paciente-pagos>
+    </div>
+  </div>
+</section>

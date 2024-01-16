@@ -1,0 +1,149 @@
+<div class="aside col-12 border-end ">
+  <!-- primera seccion-->
+  <div class="row-11  h-25">
+    <div>
+      <div class="circle-initail">
+        <h2>{{initial}}</h2>
+      </div>
+    </div>
+
+    <div class="row p-1 text-center">
+      <h5>{{data + ' ' + paciente.nombre + ' ' + paciente.apellidos}}</h5>
+    </div>
+
+    <div class="row p-1 text-center">
+      <p># {{numero + ' - ' + (paciente.tipo_documento + ':'||'DNI :') + paciente.documento_identidad}}</p>
+    </div>
+
+    <div class="row-11 border-bottom p-2">
+      <div class="row d-flex justify-content-center gap-2 ">
+        <button class="btn-circle rounded-circle"><i class="fa-solid fa-comment-dots"></i></button>
+        <button class="btn-circle rounded-circle"><i class="fa-regular fa-calendar-plus"></i></button>
+        <button class="btn-circle rounded-circle"><i class="fa-solid fa-ellipsis"></i></button>
+      </div>
+    </div>
+
+  </div>
+  <!-- primera seccion-->
+
+  <!-- segunda seccion-->
+    <div class="row-11 p-2 mt-3 border-bottom">
+      <div>
+        <div class="row p-1 text-center">
+          <h5>Información de Contacto</h5>
+        </div>
+        <div class="row-11 p-1 d-flex gap-2 ">
+          <span><i class="fa-solid fa-phone"></i></span>
+          <p>{{paciente.telefono}}</p>
+        </div>
+        <div class="row-11 d-flex gap-2 ">
+          <span><i class="fa-regular fa-envelope col-1"></i></span>
+          <p class="col">{{paciente.email}}</p>
+        </div>
+      </div>
+    </div>
+  <!-- segunda seccion-->
+
+    <!-- tercera seccion-->
+    <div class="row-11 p-1">
+      
+      @if(paciente.comentario){
+        <div>
+          <div class="row p-1 text-start">
+            <h5>Comentarios</h5>
+          </div>
+          <div class="row-11 p-1 d-flex gap-2 ">
+            <span><i class="fa-solid fa-info"></i></span>
+            <textarea name="" id="" [value]="paciente.comentario" cols="30" rows="3"  class="form-control border-0"></textarea>
+          </div>
+        </div>
+      }@else {
+        <div>
+          <div class="row p-1 text-start">
+            <h5>Comentarios</h5>
+          </div>
+          <div class="row-11 p-1 d-flex gap-2 align-items-center">
+            <span><i class="fa-solid fa-info"></i></span>
+            <textarea name="" id="" paceholder="Escriba un comentario" cols="30" rows="3"  class="form-control border-0"></textarea>
+          </div>
+        </div>
+
+        <div>
+          <div class="row p-1 text-start">
+            <h5>Comentarios</h5>
+          </div>
+          <div class="row-11 p-1 d-flex gap-2 align-items-center">
+            <span><i class="fa-solid fa-info"></i></span>
+            <textarea name="" id="" paceholder="Escriba un comentario" cols="30" rows="3"  class="form-control border-0"></textarea>
+          </div>
+        </div>
+
+      }
+
+      <div>
+        <div class="row p-1 text-start">
+          <h5>Alergias</h5>
+        </div>
+        <div class="row-11 p-2 d-flex gap-2 ">
+          <span><i class="fa-solid fa-hand-dots"></i></span>
+          <div>
+            <p>No hay registros</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="row p-1 text-start">
+          <h5>Medicamentos</h5>
+        </div>
+        <div class="row-11 p-2 d-flex gap-2 ">
+          <span><i class="fa-solid fa-capsules"></i></span>
+          <div>
+            <p>No hay registros</p>
+          </div>
+        </div>
+      </div>
+
+      
+        <div>
+          <div class="row p-1 text-start">
+            <h5>Antecedentes Medicos</h5>
+          </div>
+          <div class="row-11 p-2 d-flex gap-2 ">
+            <span><i class="fa-solid fa-house-medical-circle-exclamation"></i></span>
+            <div>
+              <p>No hay registros</p>
+            </div>
+          </div>
+        </div>
+
+        @if(paciente.otros_datos){
+          <div>
+            <div class="row p-1 text-start">
+              <h5>Otros Datos</h5>
+            </div>
+            <div class="row-11 p-2 d-flex gap-2 ">
+              <span><i class="fa-solid fa-clipboard-question"></i></span>
+              <div>
+                <p>{{paciente.otros_datos}}</p>
+              </div>
+            </div>
+          </div>
+        }@else {
+          <div>
+            <div class="row p-1 text-start">
+              <h5>Otros Datos</h5>
+            </div>
+            <div class="row-11 p-2 d-flex gap-2 ">
+              <span><i class="fa-solid fa-clipboard-question"></i></span>
+              <div>
+                <p>No hay registros</p>
+              </div>
+            </div>
+          </div>
+        }
+
+    </div>
+  <!-- tercera seccion-->
+
+</div>
