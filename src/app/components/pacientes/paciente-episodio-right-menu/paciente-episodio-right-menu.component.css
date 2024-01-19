@@ -1,0 +1,8 @@
+.lista{
+    height: 300px;
+    overflow-y: auto;
+}
+.lista-resultado{
+    height: 450px;
+    overflow-y: auto;
+}

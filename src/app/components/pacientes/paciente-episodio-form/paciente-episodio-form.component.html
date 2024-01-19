@@ -4,11 +4,11 @@
     <div class="row d-flex justify-content-center mt-3">
       <label for="" class="col-2">
         Peso
-        <input class="form-control" type="text" placeholder="kg" name="peso">
+        <input class="form-control" type="text" placeholder="kg" name="peso" (input)="actualizarConsulta($event)">
       </label>
       <label for="" class="col-2">
         Altura
-        <input class="form-control" type="text" placeholder="metros" name="altura">
+        <input class="form-control" type="text" placeholder="metros" name="altura" (input)="actualizarConsulta($event)">
       </label>
 
       <div class="col-2 d-flex flex-column align-items-center">
@@ -23,28 +23,28 @@
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
         <h4>Anamnesis</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="anamnesis" id="" cols="30" rows="2"></textarea>
+        <textarea class="form-control border-0" placeholder="Escriba aqui" name="anamnesis" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
         <h4>Sintomas</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="sintomas" id="" cols="30" rows="2"></textarea>
+        <textarea class="form-control border-0" placeholder="Escriba aqui" name="sintomas" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
         <h4>Diagnostico</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="diagnostico" id="" cols="30" rows="2"></textarea>
+        <textarea class="form-control border-0" placeholder="Escriba aqui" name="diagnostico" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
         <h4>Comentarios</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="comentarios" id="" cols="30" rows="2"></textarea>
+        <textarea class="form-control border-0" placeholder="Escriba aqui" name="comentarios" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
