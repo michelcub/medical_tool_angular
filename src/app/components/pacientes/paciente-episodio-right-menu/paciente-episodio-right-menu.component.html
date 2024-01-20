@@ -50,7 +50,20 @@
             </div>
             <h6 class="row mt-3 ms-3">Lista</h6>
             <ul class="row lista">
-              <li>Paracetamol 50g</li>
+              @for(medicamento of listaMedicamentos; track medicamento?.nregistro){
+                <li id="medicamento.nregistro" class="row d-flex align-items-center border-bottom card-medicamento">
+                  <div class="row">
+                    <p class="fs-6 col-10">{{medicamento?.nombre}} </p>
+                    <i class="fa-regular fa-trash-can text-danger btn col-2" (click)="eliminarMedicamento($event)" [id]="medicamento?.nregistro"></i>
+                  </div>
+                  <div class="row">
+                    <p class="col border-end"><i class="fa-solid fa-repeat"></i> {{medicamento.pauta}}</p>
+                    <p class="col border-end"><i class="fa-regular fa-calendar"></i> {{medicamento.duracion}}</p>
+                    <p class="col"><i class="fa-solid fa-hashtag"></i> {{medicamento.unidades}}</p>
+                  </div>
+                </li>
+              }
+              
             </ul>
         </div>
 
@@ -65,25 +78,57 @@
           </div>
         }
 
-        @if(presentaciones?.length > 0){
+        @if(presentaciones?.length > 0 && resultadoBusqueda?.length > 0){
           <div class="col col-4 p-3 border-end">
             <h6 class="row mt-3 ms-3">Presentacion</h6>
             <ul class="row lista-resultado ">
               @for(presentacion of presentaciones; track presentacion){
-                <div class="row border-bottom mt-2 p-2">
+                <div [id]="presentacion?.nregistro" (click)="seleccionarmedicamento($event)"  class="row border-bottom mt-2 p-2 hover btn table-hover shadow">
                   <h6>{{presentacion?.nombre}}</h6>
-                  <img [src]="presentacion.fotos[0].url" alt="">
-                  <a [href]="presentacion.docs[0].url" target="_blank">Documento Completo</a>
+                  <img [src]="presentacion?.fotos[0]?.url" alt="">
+                  <a [href]="presentacion?.docs[0].url" target="_blank" class="btn btn-info m-2 w-75">Ficha Tecnica</a>
                 </div>
               }
             </ul>
           </div>
         }
 
+        @if(presentacionSeleccionada !== null){
+          <div class="col col-4 p-3 border-end">
+            <h6 class="row mt-3 ms-3">Agregar Indicacion</h6>
+            <div class="row">
+              <p class="col">Medicamento : {{presentacionSeleccionada?.nombre}}</p>
+
+              <label for="" class="row">
+                Duracion
+                <input type="text" name="duracion" id="" class="form-control" (input)="crearIndicacion($event)">
+              </label>
+              <label for="" class="row">
+                Pauta
+                <select name="pauta" id="pauta" class="form-control" (input)="crearIndicacion($event)">
+                  <option selected>Selecciona la pauta</option>
+                  <option value="c/ 6h">c/ 6h</option>
+                  <option value="c/ 8h">c/ 8h</option>
+                  <option value="c/ 12h">c/ 12h</option>
+                  <option value="c/ 24h">c/ 24h</option>
+                </select>
+              </label>
+              <label for="" class="row">
+                Unidades
+                <input type="text" name="unidades" value="1" id="" class="form-control" (input)="crearIndicacion($event)">
+              </label>
+
+              <div class="row p-3">
+                <button class="btn btn-info w-75 col" (click)="guardarIndicacion()">Agregar</button>
+              </div>
+            </div>
+          </div>
+        }
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="guardarMedicamentos()">Save changes</button>
       </div>
     </div>
   </div>

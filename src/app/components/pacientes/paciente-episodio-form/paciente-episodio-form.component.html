@@ -58,17 +58,22 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Medicamento</th>
-              <th scope="col">Presentacion</th>
-              <th scope="col">Instrucciones</th>
+              <th scope="col">Duracion</th>
+              <th scope="col">Pauta</th>
+              <th scope="col">Unidades</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Test</td>
-              <td>50g</td>
-              <td>cada 12h</td>
-            </tr>
+            @for(prescripcion of consultaActual?.prescripcion; track $index){
+              <tr>
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{prescripcion?.nombre}}</td>
+                <td>{{prescripcion?.duracion}}</td>
+                <td>{{prescripcion?.pauta}}</td>
+                <td>{{prescripcion?.unidades}}</td>
+              </tr>
+            }
+
             
           </tbody>
         </table>

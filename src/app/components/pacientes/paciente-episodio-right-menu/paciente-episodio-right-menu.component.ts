@@ -14,8 +14,11 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
   consultaActual: Episodio | null;
   private subscription: Subscription;
 
+  listaMedicamentos: any;
   resultadoBusqueda: any;
   presentaciones: any;
+  presentacionSeleccionada: any = null;
+
   constructor(private episodioService: EpisodioService) { 
     this.consultaActual = null;
     this.subscription = new Subscription();
@@ -56,9 +59,10 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
 
     //fetch(`https://api.fda.gov/drug/label.json?search=brand_name:${value}`)
     fetch(`https://cima.aemps.es/cima/rest/medicamentos?nombre=${value}`)
-    .then(response => response.json())
+    .then(response => {
+        if(!response.ok) return
+        return response.json()})
     .then(data => {
-      console.log(data.resultados);
       this.resultadoBusqueda = data.resultados;
     })
   }
@@ -69,9 +73,72 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
     fetch(`https://cima.aemps.es/cima/rest/presentaciones?nregistro=${id}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data.resultados);
       this.presentaciones = data.resultados
     })
   }
 
+  seleccionarmedicamento(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let id = element.id;
+    let medicamento = this.presentaciones.find((medicamento: any) => String(medicamento?.nregistro) === String(id));
+    
+    this.presentacionSeleccionada = medicamento;
+    this.presentaciones = null;
+    this.resultadoBusqueda = null;
+    console.log(this.presentacionSeleccionada)
+  }
+
+  crearIndicacion(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.trim();
+    const name = input.name;
+    this.presentacionSeleccionada[name] = value;
+  }
+
+  guardarIndicacion() {
+    console.log('guardando indicacion')
+    if(!this.listaMedicamentos?.length){
+      this.listaMedicamentos = []
+    }
+    if(!this.presentacionSeleccionada?.unidades){
+      this.presentacionSeleccionada.unidades = 1;
+    }
+    this.listaMedicamentos.push(this.presentacionSeleccionada)
+    this.presentacionSeleccionada = null;
+  }
+
+  eliminarMedicamento(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let id = element.id;
+    let newList = this.listaMedicamentos.filter((medicamento: any) => String(medicamento?.nregistro) !== String(id));
+    this.listaMedicamentos = newList;
+  }
+
+  imprimirRecetas() {
+    console.log('imprimiendo recetas');
+    
+  }
+
+  guardarMedicamentos() {
+    
+    console.log('guardando medicamentos')
+    if (!this.listaMedicamentos) {
+      // Handle the case where listaMedicamentos is not defined
+      console.error('No se puede imprimir recetas sin medicamentos');
+      return;
+    }
+  
+    if (this.consultaActual && this.consultaActual.paciente_id) {
+      let updatedConsultaActual = {
+        ...this.consultaActual,
+        prescripcion: this.listaMedicamentos
+      };
+
+      this.episodioService.actualizarConsulta(updatedConsultaActual)
+    } else {
+      // Handle the case where paciente_id is undefined or consultaActual is null
+      console.error('Datos de consulta actual incompletos.');
+    }
+    console.log(this.consultaActual);
+  }
 }

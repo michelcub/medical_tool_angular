@@ -10,7 +10,7 @@ export interface Episodio {
     sintomas?: string;
     diagnostico?: string;
     comentarios?: string;
-    prescripcion?: string[];
+    prescripcion?: any[];
     documentos?: string[];
     imagenes?: string[];
     cobrado: boolean;
