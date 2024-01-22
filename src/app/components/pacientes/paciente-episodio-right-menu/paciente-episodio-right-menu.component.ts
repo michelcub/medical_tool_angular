@@ -32,7 +32,10 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
         this.consultaActual = episodio;
       }
     );
+  
+    
   }
+  
 
   actualizarConsulta(event: Event) {
     const inputElement = event.target as HTMLInputElement;

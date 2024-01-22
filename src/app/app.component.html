@@ -9,7 +9,7 @@
               <!--Calendar-->
               <li><a href=""><i class="fa-regular fa-calendar mt-5 text-secondary icon_menu"></i></a></li>
               <!--Paciente-->
-              <li><a href="pacientes/"><i class="fa-solid fa-user-group text-secondary icon_menu"></i></a></li>
+              <li><a [routerLink]="'pacientes/'"><i class="fa-solid fa-user-group text-secondary icon_menu"></i></a></li>
               <!--chat-->
               <li><a href=""><i class="fa-solid fa-comment-dots text-secondary icon_menu"></i></a></li>
               <!--Estadistica-->
@@ -23,7 +23,7 @@
           <ul class="nav d-flex flex-column fs-3 align-items-center gap-2">
               <li><a href=""><i class="fa-regular fa-circle-question text-secondary icon_menu"></i></a></li>
               <li><a href=""><i class="fa-regular fa-bell text-secondary icon_menu"></i></a></li>
-              <li><a href=""><i class="fa-regular fa-circle-user text-secondary icon_menu"></i></a></li>
+              <li><a [routerLink]="'my-profile/'"><i class="fa-regular fa-circle-user text-secondary icon_menu"></i></a></li>
           </ul>
 
       </nav>

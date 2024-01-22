@@ -1,0 +1,15 @@
+<section class="container">
+  <h2 class="row-12 mt-5 text-center">Bienvenido a tu perfil</h2>
+
+  <div class="row mt-5 d-flex justify-content-center">
+    <h5 class="row-12 mt-5 text-center" >Guardar y encriptar recetas</h5>
+    <label for="" class="col-4">
+      <input type="file" class="form-control" name="recetas" id="" (input)="onFileSelected($event)">
+    </label>
+    
+
+    <div class="row d-flex justify-content-center mt-2">
+      <button class="btn btn-primary col-2" (click)="savePDF()">Guardar</button>
+    </div>
+  </div>
+</section>

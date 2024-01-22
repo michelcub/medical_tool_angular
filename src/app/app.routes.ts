@@ -8,6 +8,7 @@ import { PacienteFileComponent } from './page/paciente-file/paciente-file.compon
 import { LoginComponent } from './page/login/login.component';
 import { RegisterComponent } from './page/register/register.component';
 import { PacienteEpisodioComponent } from './page/paciente-episodio/paciente-episodio.component';
+import { MyProfileComponent } from './page/my-profile/my-profile.component';
 
 export const routes: Routes = [
     {
@@ -38,6 +39,10 @@ export const routes: Routes = [
     {
         path: 'pacientes/:id/episodio/:id',
         component: PacienteEpisodioComponent
+    },
+    {
+        path:'my-profile',
+        component: MyProfileComponent
     }
 ];
 
