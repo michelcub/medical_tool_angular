@@ -12,4 +12,59 @@
       <a class="btn btn-primary" [routerLink]="'episodio/new'"  >Crear nuevo episodio</a>
     </div>
   </div>
+
+  <div class="row  d-flex justify-content-center">
+
+    @if(episodes.length > 0){
+      @for(episode of episodes; track episode){
+        <div class="position-relative  px-5 py-2 d-flex justify-content-center">
+          <div class="position-absolute top-25 end-0 z-3 me-5 pe-5">
+            <button class="btn btn-outline-primary fs-4 me-2"><i class="fa-solid fa-print"></i></button>
+            <button class="btn btn-outline-primary fs-4"><i class="fa-regular fa-paper-plane"></i></button>
+          </div>
+          <div class="accordion  w-75" id="accordionExample">
+            
+            <div class="accordion-item">
+              <h2 class="accordion-header ">
+                
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  {{episode?.date}}
+                </button>
+  
+                
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="row px-4">
+                  <h4 class="row">Anamnesis</h4>
+                  <p class="row">{{episode.anamnesis}}</p>
+                </div>
+                <div class="row px-4">
+                  <h4 class="row">Sintomas</h4>
+                  <p class="row">{{episode.sintomas}}</p>
+                </div>
+                <div class="row px-4">
+                  <h4 class="row">Diagnostico</h4>
+                  <p class="row">{{episode.diagnostico}}</p>
+                </div>
+                <div class="row px-4">
+                  <h4 class="row">Comentarios</h4>
+                  <p class="row">{{episode.comentarios}}</p>
+                </div>
+                <div class="row px-4">
+                  <h4 class="row">Prescripcion</h4>
+                  <ul>
+                    @for(medicamento of episode?.prescripcion; track medicamento.nregistro){
+                      <li>{{medicamento.nombre}}</li>
+                    }
+                  </ul>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+
+  </div>
 </section>

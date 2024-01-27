@@ -6,7 +6,7 @@ import { PacienteEpisodioRightMenuComponent } from '../../components/pacientes/p
 import { Episodio } from '../../models/episodio.models';
 import { EpisodioService } from '../../services/episodios/episodio.service';
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-episodio-new',
@@ -21,7 +21,7 @@ export class PacienteEpisodioNewComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   paciente_id = null;
   employee_id = '';
-  constructor(private route: ActivatedRoute, private episodioService: EpisodioService) { 
+  constructor(private router: Router, private route: ActivatedRoute, private episodioService: EpisodioService) { 
     this.episodioActual = null;
     this.subscription = new Subscription();
   }
@@ -60,6 +60,7 @@ export class PacienteEpisodioNewComponent implements OnInit, OnDestroy {
 
   finalizarEpisodio() {
     this.episodioService.finalizarConsulta();
+    this.router.navigate([`/pacientes/${this.paciente_id}/`])
   }
   
 

@@ -15,6 +15,6 @@ export interface Episodio {
     imagenes?: string[];
     cobrado: boolean;
     servicios?: string[];
-
+    date?: string;
   }
   

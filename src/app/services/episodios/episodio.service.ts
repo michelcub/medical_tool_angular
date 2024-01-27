@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Episodio } from '../../models/episodio.models';
+import { enviroments } from '../../../enviroments/enviroments';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,23 @@ export class EpisodioService {
   }
 
   finalizarConsulta() {
+    const episodioActual = this.consultaActualSubject.value; 
+    if (episodioActual) {
+        fetch(enviroments['route-api'] + '/episodio/new/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(episodioActual) // Usa el episodio actual para el cuerpo de la solicitud
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    } else {
+        console.log('No hay episodio actual para finalizar');
+    }
     this.consultaActualSubject.next(null);
-  }
+}
 
-  obtenerConsultaActual(): Episodio | null {
-    return this.consultaActualSubject.value;
-  }
 }
