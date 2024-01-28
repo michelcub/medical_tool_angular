@@ -7,7 +7,7 @@
           <button class="btn btn-outline-primary fs-5 me-2"><i class="fa-solid fa-print"></i></button>
           <button class="btn btn-outline-primary fs-5 me-2"><i class="fa-regular fa-paper-plane"></i></button>
           @if (!cobro.cobrado) {
-            <button class="btn btn-danger  fs-5 me-5">Cobrar</button>
+            <button id="{{cobro._id}}" class="btn btn-danger  fs-5 me-5" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="seleccionarCobro($event)">Cobrar</button>
           }
         </div>
         <div class="position-absolute top-25 end-50 z-3  mt-2">
@@ -43,4 +43,36 @@
     }
   }
 
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cobrar servicios</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="">
+          Seleccionar forma de pago
+          <select name="" id="" class="row form-control ms-1 border-primary" (input)="seleccionarCobro($event)">
+            <option value="efectivo">Efectivo</option>
+            <option value="tarjeta">Tarjeta</option>
+            <option value="transferencia">Transeferencia</option>
+            <option value="bizum">Bizum</option>
+          </select>
+        </label>
+        <h5 class="mt-3">
+          Total: {{cobro_seleccionado?.monto}} euros
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="ralizarCobro()">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

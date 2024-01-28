@@ -11,8 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 export class PacientePagosComponent implements OnInit {
 
   cobros:any
+  cobro_seleccionado:any
   paciente_id = ''
   employe_id
+
 
   constructor( private route: ActivatedRoute){
     this.cobros = []
@@ -42,4 +44,44 @@ export class PacientePagosComponent implements OnInit {
       this.cobros = data
     })
   }
+
+  seleccionarCobro(event:Event){
+    const target = event.target as HTMLInputElement;
+    const id = target.id;
+    this.cobros.forEach((cobro:any) => {
+      if(cobro._id == id){
+        this.cobro_seleccionado = cobro
+      }
+    })
+  }
+
+  selccionarMetodoPago(event:Event){
+    const target = event.target as HTMLInputElement;
+    const metodo_pago = target.value;
+    this.cobro_seleccionado.metodo_pago = metodo_pago
+  }
+
+  ralizarCobro(){
+    this.cobro_seleccionado.employee_id = this.employe_id
+    this.cobro_seleccionado.cobrado = true
+
+    if(!this.cobro_seleccionado.metodo_pago){
+      this.cobro_seleccionado.metodo_pago = 'efectivo'
+    }
+
+    fetch(enviroments['route-api'] + `/pagos/${this.cobro_seleccionado._id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      body: JSON.stringify(this.cobro_seleccionado)
+    })
+    .then((res) => res.json())
+    .then(data => {
+      
+      this.getPagos()
+    })
+  }
+
 }
