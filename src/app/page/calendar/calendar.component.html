@@ -1,0 +1,61 @@
+<section class="container-fluid p-4">
+  <div class="row d-flex align-items-center border-bottom p-2">
+    <button class="btn btn-outline-secondary col-1" (click)="resetToCurrentWeek()">Esta semana</button>
+    <div class="col-1">
+      <button (click)="goToPreviousWeek()"  class="btn col"><i class="fa-solid fa-chevron-left"></i></button>
+      <button (click)="goToNextWeek()" class="btn col-2"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="col">
+      Semana del {{ daysInWeek[0] }} al {{ daysInWeek[6] }}
+    </div>
+    
+  </div>
+
+  <div class="row text-center px-5 m-0 overflow-y-auto calendar-container mt-3 position-relative">
+    @for(dayInWeek of daysInWeek; track $index){
+      <div class="col m-0 p-0 ">
+        <div class="mb-4 position-sticky sticky-top bg-white">
+          @if (toDay == dayInWeek) {
+            <h4 class="bg-primary text-white rounded-pill">{{dayInWeek}}</h4>
+          }@else {
+            <h4 class="text-secondary">{{dayInWeek}}</h4>
+          }
+        </div>
+        <div>
+          @for (hour of hoursOpen; track $index) {
+          
+            <div class="border box-calendar position-relative box-component" id="{{weeksOfYear[$index]}}" [attr.hour]="hour" (click)="selectDay($event)"   data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              @if(dayInWeek.toString().includes("Sunday")){
+                <span class="position-absolute  text-primary hora-absolute">{{hour}}</span>
+            }
+            </div>
+          
+        }
+        </div>
+      </div>
+    }
+    
+  </div>
+</section>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cita</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Seleccionado: {{selectedDay.date}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>

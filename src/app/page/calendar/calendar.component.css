@@ -1,0 +1,12 @@
+.box-calendar{
+    height: 150px;
+}
+
+.calendar-container{
+    height: 80vh;
+}
+
+.hora-absolute{
+    left: -45px;
+    top: -13px;
+}

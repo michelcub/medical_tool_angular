@@ -9,6 +9,7 @@ import { LoginComponent } from './page/login/login.component';
 import { RegisterComponent } from './page/register/register.component';
 import { PacienteEpisodioComponent } from './page/paciente-episodio/paciente-episodio.component';
 import { MyProfileComponent } from './page/my-profile/my-profile.component';
+import { CalendarComponent } from './page/calendar/calendar.component';
 
 export const routes: Routes = [
     {
@@ -43,6 +44,10 @@ export const routes: Routes = [
     {
         path:'my-profile',
         component: MyProfileComponent
+    },
+    {
+        path:'calendar',
+        component: CalendarComponent
     }
 ];
 
