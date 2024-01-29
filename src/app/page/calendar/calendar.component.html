@@ -21,16 +21,21 @@
             <h4 class="text-secondary">{{dayInWeek}}</h4>
           }
         </div>
-        <div>
+        <div class="position-relative">
           @for (hour of hoursOpen; track $index) {
           
-            <div class="border box-calendar position-relative box-component" id="{{weeksOfYear[$index]}}" [attr.hour]="hour" (click)="selectDay($event)"   data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <div class="border box-calendar position-relative box-component d-flex flex-column"     data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               @if(dayInWeek.toString().includes("Sunday")){
                 <span class="position-absolute  text-primary hora-absolute">{{hour}}</span>
-            }
+              }
+              @for(minute of minutesOpen; track minute){
+                <div class="row border-bottom h-25 w-100 ms-0" (click)="selectDay($event)" id="{{weeksOfYear[$index]}}" [attr.hour]="hour" [attr.minute]="minute">
+                  
+                </div>
+              }
             </div>
           
-        }
+          }
         </div>
       </div>
     }

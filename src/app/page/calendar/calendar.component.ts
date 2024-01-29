@@ -13,7 +13,7 @@ export class CalendarComponent implements OnInit {
   daysInWeek = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
   hoursOpen = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00','17:00', '18:00', '19:00', '20:00']
-
+  minutesOpen = ['00', '15', '30', '45']
   weeksOfYear: string[] = [];
 
   
