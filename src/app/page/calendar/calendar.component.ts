@@ -24,7 +24,8 @@ export class CalendarComponent implements OnInit {
 
   selectedDay = {
     date: '',
-    hour: ''
+    hour: '',
+    minute: ''
   }
 
   constructor() { }
@@ -68,7 +69,7 @@ export class CalendarComponent implements OnInit {
     for (let i = 0; i < 7; i++) {
       const day = startOfWeek.clone().add(i, 'days');
       this.daysInWeek.push(day.format('dddd, DD/MM'));
-      this.weeksOfYear.push(day.format('dddd, DD/MM/YYYY')); // Añade año aquí
+      this.weeksOfYear.push(day.format('YYYY/MM/DD')); // Añade año aquí
     }
     console.log(this.weeksOfYear);
   }
@@ -83,6 +84,7 @@ export class CalendarComponent implements OnInit {
     const target = event.target as HTMLInputElement
     this.selectedDay.date = target.id
     this.selectedDay.hour = target.getAttribute('hour')||''
+    this.selectedDay.minute = target.getAttribute('minute')||''
     console.log(this.selectedDay)
   }
   

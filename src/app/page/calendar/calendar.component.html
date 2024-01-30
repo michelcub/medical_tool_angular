@@ -54,12 +54,55 @@
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cita</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <p>Seleccionado: {{selectedDay.date}}</p>
+      <div class="modal-body ">
+        <p>Seleccionado: {{selectedDay.date.split('/').join('-')}}  Hora: {{selectedDay.hour.split(':')[0]}} : {{selectedDay.minute}}</p>
+        
+        <div class="row d-flex align-items-center">
+          <label for="" class="col">
+            Paciente
+            <input type="text" name="nombre" id="" class="row form-control" placeholder="Buscar paciente">
+          </label>
+          <div class="col mt-3">
+            <a href="" target="_blank" rel="noopener noreferrer" class="border-0"><i class="fa-solid fa-user-plus" ></i> Crear nuevo paciente</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <Label class="col-6">
+            Selecciona el dia
+            <input type="date" name="fecha" id="" class="form-control row" value="{{selectedDay.date.split('/').join('-')}}">
+          </Label>
+          <Label class="col">
+            Hora
+            <select name="hora" id="" class="form-control">
+              @for(hour of hoursOpen; track $index){
+                @if(hour == selectedDay.hour){
+                  <option value="{{hour}}" selected>{{hour}}</option>
+                }@else{
+                  <option value="{{hour}}">{{hour}}</option>
+                }
+              }
+            </select>
+          </Label>
+          <Label class="col">
+            Minuto
+            <select name="hora" id="" class="form-control">
+              @for(minute of minutesOpen; track $index){
+                @if(minute == selectedDay.minute){
+                  <option value="{{minute}}" selected>{{minute}}</option>
+                }@else{
+                  <option value="{{minute}}">{{minute}}</option>
+                }
+              }
+            </select>
+          </Label>
+        </div>
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Crear Cita</button>
       </div>
     </div>
   </div>
