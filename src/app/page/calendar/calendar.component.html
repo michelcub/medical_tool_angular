@@ -1,35 +1,35 @@
 <section class="container-fluid p-4">
   <div class="row d-flex align-items-center border-bottom p-2">
-    <button class="btn btn-outline-secondary col-1" (click)="resetToCurrentWeek()">Esta semana</button>
+    <button class="btn btn-outline-secondary col-1" (click)="citasService.resetToCurrentWeek()">Esta semana</button>
     <div class="col-1">
-      <button (click)="goToPreviousWeek()"  class="btn col"><i class="fa-solid fa-chevron-left"></i></button>
-      <button (click)="goToNextWeek()" class="btn col-2"><i class="fa-solid fa-chevron-right"></i></button>
+      <button (click)="citasService.goToPreviousWeek()"  class="btn col"><i class="fa-solid fa-chevron-left"></i></button>
+      <button (click)="citasService.goToNextWeek()" class="btn col-2"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
     <div class="col">
-      Semana del {{ daysInWeek[0] }} al {{ daysInWeek[6] }}
+      Week {{ citasService.daysInWeek[0] }} to {{ citasService.daysInWeek[6] }}
     </div>
     
   </div>
 
   <div class="row text-center px-5 m-0 overflow-y-auto calendar-container mt-3 position-relative">
-    @for(dayInWeek of daysInWeek; track $index){
+    @for(dayInWeek of citasService.daysInWeek; track $index){
       <div class="col m-0 p-0 ">
         <div class="mb-4 position-sticky sticky-top bg-white">
-          @if (toDay == dayInWeek) {
+          @if (citasService.toDay == dayInWeek) {
             <h4 class="bg-primary text-white rounded-pill">{{dayInWeek}}</h4>
           }@else {
             <h4 class="text-secondary">{{dayInWeek}}</h4>
           }
         </div>
         <div class="position-relative">
-          @for (hour of hoursOpen; track $index) {
+          @for (hour of citasService.hoursOpen; track $index) {
           
             <div class="border box-calendar position-relative box-component d-flex flex-column"     data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               @if(dayInWeek.toString().includes("Sunday")){
                 <span class="position-absolute  text-primary hora-absolute">{{hour}}</span>
               }
-              @for(minute of minutesOpen; track minute){
-                <div class="row border-bottom h-25 w-100 ms-0" (click)="selectDay($event)" id="{{weeksOfYear[$index]}}" [attr.hour]="hour" [attr.minute]="minute">
+              @for(minute of citasService.minutesOpen; track minute){
+                <div class="row border-bottom h-25 w-100 ms-0" (click)="citasService.selectDay($event)" id="{{citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)]}}" [attr.hour]="hour" [attr.minute]="minute">
                   
                 </div>
               }
@@ -55,12 +55,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body ">
-        <p>Seleccionado: {{selectedDay.date.split('/').join('-')}}  Hora: {{selectedDay.hour.split(':')[0]}} : {{selectedDay.minute}}</p>
+        <p>Seleccionado: {{citasService.selectedDay.date.split('/').join('-')}}  Hora: {{citasService.selectedDay.hour.split(':')[0]}} : {{citasService.selectedDay.minute}}</p>
         
         <div class="row d-flex align-items-center">
           <label for="" class="col">
             Paciente
-            <input type="text" name="nombre" id="" class="row form-control" placeholder="Buscar paciente">
+            <input type="text" name="paciente" id="" class="row form-control" placeholder="Buscar paciente" (input)="citasService.handleInputNewCita($event)" list="pacientesList">
+            <datalist id="pacientesList">
+              <option value="Opción 1">
+              <option value="Opción 2">
+              <option value="Opción 3">
+              <option value="Opción 4">
+              <option value="Opción 5">
+            </datalist>
           </label>
           <div class="col mt-3">
             <a href="pacientes/new/" target="_blank" rel="noopener noreferrer" class="border-0"><i class="fa-solid fa-user-plus" ></i> Crear nuevo paciente</a>
@@ -70,13 +77,13 @@
         <div class="row">
           <Label class="col-6">
             Selecciona el dia
-            <input type="date" name="fecha" id="" class="form-control row" value="{{selectedDay.date.split('/').join('-')}}">
+            <input type="date" name="date" id="" class="form-control row" value="{{citasService.selectedDay.date.split('/').join('-')}}" (input)="citasService.handleInputNewCita($event)">
           </Label>
           <Label class="col">
             Hora
-            <select name="hora" id="" class="form-control">
-              @for(hour of hoursOpen; track $index){
-                @if(hour == selectedDay.hour){
+            <select name="hour" id="" class="form-control" (input)="citasService.handleInputNewCita($event)">
+              @for(hour of citasService.hoursOpen; track $index){
+                @if(hour == citasService.selectedDay.hour){
                   <option value="{{hour}}" selected>{{hour}}</option>
                 }@else{
                   <option value="{{hour}}">{{hour}}</option>
@@ -86,9 +93,9 @@
           </Label>
           <Label class="col">
             Minuto
-            <select name="hora" id="" class="form-control">
-              @for(minute of minutesOpen; track $index){
-                @if(minute == selectedDay.minute){
+            <select name="minute" id="" class="form-control" (input)="citasService.handleInputNewCita($event)">
+              @for(minute of citasService.minutesOpen; track $index){
+                @if(minute == citasService.selectedDay.minute){
                   <option value="{{minute}}" selected>{{minute}}</option>
                 }@else{
                   <option value="{{minute}}">{{minute}}</option>
@@ -98,11 +105,13 @@
           </Label>
         </div>
 
-
+        <div class="p-2 row">
+          <textarea name="motivo" id="" cols="30" rows="5" class="form-control" placeholder="Motivo de la visita..." (input)="citasService.handleInputNewCita($event)"></textarea>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Crear Cita</button>
+        <button type="button" class="btn btn-primary {{citasService.showModal}}"  (click)="citasService.saveCita()">Crear Cita</button>
       </div>
     </div>
   </div>
