@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit {
 
 
   currentDate = moment();
-
+  currentWeek: any
   selectedDay = {
     date: '',
     hour: '',
@@ -35,6 +35,7 @@ export class CalendarComponent implements OnInit {
     this.updateDaysInWeek();
     this.toDay = moment().format('dddd, DD/MM');
     console.log(this.toDay);
+    this.currentWeek = this.currentDate.week();
   }
 
   initializeDragAndDrop() {
@@ -65,6 +66,8 @@ export class CalendarComponent implements OnInit {
   updateDaysInWeek() {
     this.daysInWeek = [];
     this.weeksOfYear = [];
+    this.currentWeek = this.currentDate.week(); 
+    console.log(this.currentWeek);
     const startOfWeek = this.currentDate.clone().startOf('week');
     for (let i = 0; i < 7; i++) {
       const day = startOfWeek.clone().add(i, 'days');
@@ -88,4 +91,8 @@ export class CalendarComponent implements OnInit {
     console.log(this.selectedDay)
   }
   
+  saveCita(){
+    console.log('save cita')
+  }
+
 }
