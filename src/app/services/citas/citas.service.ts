@@ -77,6 +77,42 @@ export class CitasService {
     console.log(this.selectedDay)
   }
   
+  selectPacienteList(event:Event){
+    console.log('click')
+    const target = event.target as HTMLInputElement
+    this.selectedDay.paciente = target.value
+    console.log(this.selectedDay)
+    let paciente = this.pacienteList.find(paciente => paciente._id === target.value)
+    target.value = paciente.nombre + ' ' + paciente.apellidos
+  }
+
+  handleFindPaciente(event:Event){
+    const input = event.target as HTMLInputElement
+    const value = input.value.trim().split(' ')[0]
+    if(value.length > 3){
+      console.log(value);
+      fetch(enviroments['route-api']+'/pacientes/find/'+value, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            return
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data); // Esto debería mostrar la respuesta de la API
+        this.pacienteList = data
+    })
+    .catch(error => console.error('Error:', error));
+    }
+  }
+
+
   handleInputNewCita(e: Event){
     const input = e.target as HTMLInputElement
     this.selectedDay[input.name] = input.value.trim()
