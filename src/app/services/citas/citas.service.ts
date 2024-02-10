@@ -1,18 +1,23 @@
+import { Paciente } from './../../models/paciente.models';
+import { Cita } from './../../models/citas.models';
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { enviroments } from '../../../enviroments/enviroments';
-import { Cita } from '../../models/citas.models';
 
 
 @Injectable()
 export class CitasService {
+  
 
   daysInWeek = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
-  hoursOpen = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00','17:00', '18:00', '19:00', '20:00']
-  minutesOpen = ['00', '15', '30', '45']
+  hoursOpen = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00','17:00', '18:00', '19:00', '20:00']
+  minutesOpen = Array.from({ length: 4 }, (_, index) => {
+    let number = index * 15; // Multiplicamos el índice por 15 para obtener los minutos adecuados
+    return number < 10 ? `0${number}` : `${number}`;
+});
   weeksOfYear: string[] = [];
-
+  duracionCita = ['5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']
   
   toDay :any
 
@@ -21,19 +26,36 @@ export class CitasService {
   currentWeek: any
   selectedDay: any = {
     date: '',
-    hour: '',
-    minute: ''
+    time: '',
   }
 
   showModal = ''
   
   pacienteList: any[] = []
 
+  citasSemana: Array<{ paciente: Paciente, _id?: string, // Opcional para cuando se crea una nueva cita y aún no tiene ID
+      fecha: string,
+      hora: string,
+      doctor?: string,
+      motivo: string,
+      estado: 'No realizada' | 'Realizada' | 'Cancelada' | 'Cobrado', // Puedes ajustar estos valores según los estados que manejes
+      semana: string,
+      year: string, }
+    > = [];
+  weekNumber: any;
+  year: any;
+  monthName: any;
+
   constructor() { 
     this.toDay = moment().format('dddd, DD/MM');
     console.log(this.toDay);
     this.currentWeek = this.currentDate.week();
     this.updateDaysInWeek();
+    this.weekNumber = this.currentDate.format('W');
+    this.year = this.currentDate.format('YYYY');
+    this.monthName = this.currentDate.format('MMMM')
+    this.updateCalendar()
+    console.log(this.citasSemana)
   }
 
   
@@ -41,11 +63,24 @@ export class CitasService {
   goToNextWeek() {
     this.currentDate.add(1, 'weeks');
     this.updateDaysInWeek();
+    this.weekNumber = this.currentDate.format('W');
+    this.monthName = this.currentDate.format('MMMM')
+    // Obtiene el año
+    this.year = this.currentDate.format('YYYY');
+    console.log('Número de la semana:', this.weekNumber, 'Año:', this.year);
+    this.updateCalendar()
   }
   
   goToPreviousWeek() {
     this.currentDate.subtract(1, 'weeks');
     this.updateDaysInWeek();
+    this.weekNumber = this.currentDate.format('W');
+    this.monthName = this.currentDate.format('MMMM')
+    
+    // Obtiene el año
+    this.year = this.currentDate.format('YYYY');
+    console.log('Número de la semana:', this.weekNumber, 'Año:', this.year);
+    this.updateCalendar()
   }
   
   updateDaysInWeek() {
@@ -66,23 +101,29 @@ export class CitasService {
   resetToCurrentWeek() {
     this.currentDate = moment(); // Establece la fecha actual
     this.updateDaysInWeek();     // Actualiza la vista de la semana
+
+    this.weekNumber = this.currentDate.format('W');
+    this.monthName = this.currentDate.format('MMMM')
+    // Obtiene el año
+    this.year = this.currentDate.format('YYYY');
+    console.log('Número de la semana:', this.weekNumber, 'Año:', this.year);
+    this.updateCalendar()
   }
   
   selectDay(event:Event){
     const target = event.target as HTMLInputElement
-    this.selectedDay.date = target.id.split('/').join('-')
-    this.selectedDay.hour = target.getAttribute('hour')||''
-    this.selectedDay.minute = target.getAttribute('minute')||''
+    this.selectedDay.date = target.id
+    this.selectedDay.time = target.getAttribute('time')||''
     this.selectedDay.week = this.currentWeek||''
-    console.log(this.selectedDay)
   }
   
   selectPacienteList(event:Event){
     console.log('click')
     const target = event.target as HTMLInputElement
-    this.selectedDay.paciente = target.value
-    console.log(this.selectedDay)
     let paciente = this.pacienteList.find(paciente => paciente._id === target.value)
+    this.selectedDay.paciente = paciente
+    console.log(this.selectedDay)
+    
     target.value = paciente.nombre + ' ' + paciente.apellidos
   }
 
@@ -120,20 +161,24 @@ export class CitasService {
   }
 
   saveCita(){
+    console.log('aqui--------------',this.selectedDay.paciente);
     const cita = { // Si estás usando TypeScript, mantén :Cita aquí
         estado: 'No realizada',
         fecha: this.selectedDay.date,
-        hora: this.selectedDay.hour.split(':')[0] + ':' + this.selectedDay.minute,
+        year: this.selectedDay.date.split('-')[0],
+        hora: this.selectedDay.time,
         paciente: this.selectedDay.paciente,
         motivo: this.selectedDay.motivo,
         semana: this.selectedDay.week,
         doctor: '' // Asegúrate de asignar un valor adecuado a doctor si es necesario
     };
-    console.log(cita); // Esto debería mostrar el objeto cita correctamente formado
+    console.log('aqui--------------',this.selectedDay.paciente);
+    console.log('aca---------------',cita); // Esto debería mostrar el objeto cita correctamente formado
     if(!cita.paciente || !cita.motivo){
         alert('Faltan datos');
         return;
     }
+    console.log('aca---------------',cita);
     fetch(enviroments['route-api']+'/citas/', {
         method: 'POST',
         headers: {
@@ -150,12 +195,33 @@ export class CitasService {
     })
     .then(data => {
         console.log(data); // Esto debería mostrar la respuesta de la API
-        this.showModal = 'hidden'; // Asegúrate de que esto se maneje correctamente
+        this.updateCalendar()
     })
     .catch(error => console.error('Error:', error));
 }
 
     
+updateCalendar(){
+    fetch(enviroments['route-api']+`/citas/${this.weekNumber}/${this.year}/`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data); // Esto debería mostrar la respuesta de la API
+        
+        this.citasSemana = data
+    })
+    .catch(error => console.error('Error:', error));
+}
 
 
 }

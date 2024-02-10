@@ -6,7 +6,7 @@
       <button (click)="citasService.goToNextWeek()" class="btn col-2"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
     <div class="col">
-      Week {{ citasService.daysInWeek[0] }} to {{ citasService.daysInWeek[6] }}
+      Week {{ citasService.daysInWeek[0] }} to {{ citasService.daysInWeek[6] }}, {{citasService.monthName}}, {{citasService.year}}
     </div>
     
   </div>
@@ -14,7 +14,7 @@
   <div class="row text-center px-5 m-0 overflow-y-auto calendar-container mt-3 position-relative">
     @for(dayInWeek of citasService.daysInWeek; track $index){
       <div class="col m-0 p-0 ">
-        <div class="mb-4 position-sticky sticky-top bg-white">
+        <div class="mb-4 position-sticky sticky-top bg-white title-day-calendar">
           @if (citasService.toDay == dayInWeek) {
             <h4 class="bg-primary text-white rounded-pill">{{dayInWeek}}</h4>
           }@else {
@@ -24,13 +24,24 @@
         <div class="position-relative">
           @for (hour of citasService.hoursOpen; track $index) {
           
-            <div class="border box-calendar position-relative box-component d-flex flex-column"     data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <div class="border box-calendar position-relative box-component d-flex flex-column"  (dblclick)="showModalCreateCita()">
               @if(dayInWeek.toString().includes("Sunday")){
                 <span class="position-absolute  text-primary hora-absolute">{{hour}}</span>
               }
               @for(minute of citasService.minutesOpen; track minute){
-                <div class="row border-bottom h-25 w-100 ms-0" (click)="citasService.selectDay($event)" id="{{citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)]}}" [attr.hour]="hour" [attr.minute]="minute">
-                  
+                <div class="row  h-50 w-100 ms-0 dragable p-1 m-0" (click)="citasService.selectDay($event)" id="{{citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)].split('/').join('-')}}" [attr.time]="hour.split(':')[0] + ':' + minute">
+                  <!-- AGREGAMOS CITA SI EXISTA EN ESA HORA -->
+                  @for(cita of citasService.citasSemana; track $index){
+                    @if(cita.fecha == citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)].split('/').join('-') && cita.hora == hour.split(':')[0] + ':' + minute){
+                      <button class="col  shadow cita m-0 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <div class="d-flex gap-2">
+                          <p class="text-secondary p-hora">{{cita?.hora}}</p>
+                          <p class="m-0">{{cita?.paciente?.nombre}} {{cita?.paciente?.apellidos}}</p>
+                        </div>
+                        <p class="m-0">{{cita.motivo}}</p>
+                      </button>
+                    }
+                  }
                 </div>
               }
             </div>
@@ -47,15 +58,15 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="position-absolute create-cita mt-5 card z-5 p-4 shadow" [ngClass]="show_create_cita" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear cita</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="hideModalCreateCita()"></button>
       </div>
       <div class="modal-body ">
-        <p>Seleccionado: {{citasService.selectedDay.date.split('/').join('-')}}  Hora: {{citasService.selectedDay.hour.split(':')[0]}} : {{citasService.selectedDay.minute}}</p>
+        <p>Seleccionado: {{citasService.selectedDay.date?.split('/').join('-')}}  Hora: {{citasService.selectedDay.time}} </p>
         
         <div class="row d-flex align-items-center p-2">
           <label for="pacientesList" class="form-label col-6">
@@ -80,28 +91,11 @@
           </Label>
           <Label class="col">
             Hora
-            <select name="hour" id="" class="form-control" (input)="citasService.handleInputNewCita($event)">
-              @for(hour of citasService.hoursOpen; track $index){
-                @if(hour == citasService.selectedDay.hour){
-                  <option value="{{hour}}" selected>{{hour}}</option>
-                }@else{
-                  <option value="{{hour}}">{{hour}}</option>
-                }
-              }
-            </select>
+            <input type="time" class="form-control" value="{{citasService.selectedDay?.time}}" (input)="citasService.handleInputNewCita($event)">
+            
           </Label>
-          <Label class="col">
-            Minuto
-            <select name="minute" id="" class="form-control" (input)="citasService.handleInputNewCita($event)">
-              @for(minute of citasService.minutesOpen; track $index){
-                @if(minute == citasService.selectedDay.minute){
-                  <option value="{{minute}}" selected>{{minute}}</option>
-                }@else{
-                  <option value="{{minute}}">{{minute}}</option>
-                }
-              }
-            </select>
-          </Label>
+          
+          
         </div>
 
         <div class="p-2 row">
@@ -111,10 +105,23 @@
         
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary {{citasService.showModal}}"  (click)="citasService.saveCita()">Crear Cita</button>
+      <div class="modal-footer d-flex gap-2">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="hideModalCreateCita()">Close</button>
+        <button type="button" class="btn btn-primary {{citasService.showModal}}"  (click)="citasService.saveCita();hideModalCreateCita()">Crear Cita</button>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    ...
   </div>
 </div>
