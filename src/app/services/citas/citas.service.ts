@@ -3,6 +3,7 @@ import { Cita } from './../../models/citas.models';
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { enviroments } from '../../../enviroments/enviroments';
+import { act } from '@ngrx/effects';
 
 
 @Injectable()
@@ -33,14 +34,19 @@ export class CitasService {
   
   pacienteList: any[] = []
 
+  selectedCita: any
+
+
   citasSemana: Array<{ paciente: Paciente, _id?: string, // Opcional para cuando se crea una nueva cita y aún no tiene ID
       fecha: string,
       hora: string,
       doctor?: string,
       motivo: string,
-      estado: 'No realizada' | 'Realizada' | 'Cancelada' | 'Cobrado', // Puedes ajustar estos valores según los estados que manejes
+      estado: 'No realizada' | 'Pago Pendiente' | 'Cancelada' | 'Cobrado', // Puedes ajustar estos valores según los estados que manejes
       semana: string,
-      year: string, }
+      year: string, 
+      here: boolean
+      active: boolean}
     > = [];
   weekNumber: any;
   year: any;
@@ -170,7 +176,9 @@ export class CitasService {
         paciente: this.selectedDay.paciente,
         motivo: this.selectedDay.motivo,
         semana: this.selectedDay.week,
-        doctor: '' // Asegúrate de asignar un valor adecuado a doctor si es necesario
+        doctor: '', // Asegúrate de asignar un valor adecuado a doctor si es necesario
+        here: false,
+        active: true,
     };
     console.log('aqui--------------',this.selectedDay.paciente);
     console.log('aca---------------',cita); // Esto debería mostrar el objeto cita correctamente formado
@@ -223,5 +231,54 @@ updateCalendar(){
     .catch(error => console.error('Error:', error));
 }
 
+
+  selectCita(event:Event){
+    const target = (event.target as HTMLElement).closest('button')
+    
+    const cita = this.citasSemana.find(cita => String(cita._id) === String(target?.id))
+    
+    this.selectedCita = cita
+
+  } 
+
+  updateCitaProp(event:Event){
+    const target = event.target as HTMLInputElement
+    this.selectedCita[target.name] = target.value
+    this.updateCita()
+  }
+
+  updateCita(){
+
+    fetch(enviroments['route-api']+'/citas/'+this.selectedCita._id, {
+        method: 'PUT',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.selectedCita), // Cambiado de this.selectedDay a cita
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data); // Esto debería mostrar la respuesta de la API
+        this.updateCalendar()
+    })
+    .catch(error => console.error('Error:', error));
+  }
+
+  cancelarCita(){
+    this.selectedCita.estado = 'Cancelada'
+    this.selectedCita.active = false
+    this.updateCita()
+  }
+
+  pacienteHere(){
+    this.selectedCita.here = true
+    this.updateCita()
+  }
 
 }

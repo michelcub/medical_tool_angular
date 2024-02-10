@@ -24,7 +24,7 @@
         <div class="position-relative">
           @for (hour of citasService.hoursOpen; track $index) {
           
-            <div class="border box-calendar position-relative box-component d-flex flex-column"  (dblclick)="showModalCreateCita()">
+            <div class=" box-calendar position-relative box-component d-flex flex-column"  (dblclick)="showModalCreateCita()">
               @if(dayInWeek.toString().includes("Sunday")){
                 <span class="position-absolute  text-primary hora-absolute">{{hour}}</span>
               }
@@ -32,14 +32,57 @@
                 <div class="row  h-50 w-100 ms-0 dragable p-1 m-0" (click)="citasService.selectDay($event)" id="{{citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)].split('/').join('-')}}" [attr.time]="hour.split(':')[0] + ':' + minute">
                   <!-- AGREGAMOS CITA SI EXISTA EN ESA HORA -->
                   @for(cita of citasService.citasSemana; track $index){
-                    @if(cita.fecha == citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)].split('/').join('-') && cita.hora == hour.split(':')[0] + ':' + minute){
-                      <button class="col  shadow cita m-0 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                        <div class="d-flex gap-2">
-                          <p class="text-secondary p-hora">{{cita?.hora}}</p>
-                          <p class="m-0">{{cita?.paciente?.nombre}} {{cita?.paciente?.apellidos}}</p>
-                        </div>
-                        <p class="m-0">{{cita.motivo}}</p>
-                      </button>
+                    @if(cita.fecha == citasService.weeksOfYear[citasService.daysInWeek.indexOf(dayInWeek)].split('/').join('-') && cita.hora == hour.split(':')[0] + ':' + minute && cita.active == true){
+                      @if(cita?.estado == 'No realizada'){
+                        <button id="{{cita._id}}" (click)="citasService.selectCita($event)" class="col  shadow cita m-0 border-start border-5 border-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"> 
+                          <div class="d-flex gap-2" >
+                            <p class="text-secondary p-hora">{{cita?.hora}}</p>
+                            <p class="m-0">{{cita?.paciente?.nombre}} {{cita?.paciente?.apellidos}}</p>
+                            @if(cita?.here == true){
+                              <p class="ms-auto"><i class="fa-solid fa-location-dot text-primary"></i></p>
+                            }
+                          </div>
+                          <p class="m-0">{{cita.motivo}}</p>
+                        </button>
+                      }
+                      @if(cita?.estado == 'Pago Pendiente'){
+                        <button id="{{cita._id}}" (click)="citasService.selectCita($event)" class="col  shadow cita m-0 border-start border-5 border-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"> 
+                          <div class="d-flex gap-2" >
+                            <p class="text-secondary p-hora">{{cita?.hora}}</p>
+                            <p class="m-0">{{cita?.paciente?.nombre}} {{cita?.paciente?.apellidos}}</p>
+                            @if(cita?.here == true){
+                              <p class="ms-auto"><i class="fa-solid fa-location-dot text-primary"></i></p>
+                            }
+                          </div>
+                          <p class="m-0">{{cita.motivo}}</p>
+                        </button>
+                      }
+                      @if(cita?.estado == 'Cancelada'){
+                        <button id="{{cita._id}}" (click)="citasService.selectCita($event)" class="col  shadow cita m-0 border-start border-5 border-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"> 
+                          <div class="d-flex gap-2" >
+                            <p class="text-secondary p-hora">{{cita?.hora}}</p>
+                            <p class="m-0">{{cita?.paciente?.nombre}} {{cita?.paciente?.apellidos}}</p>
+                            @if(cita?.here == true){
+                              <p class="ms-auto"><i class="fa-solid fa-location-dot text-primary"></i></p>
+                            }
+                          </div>
+                          <p class="m-0">{{cita.motivo}}</p>
+                        </button>
+                        }
+                      @if(cita?.estado == 'Cobrado'){
+                        <button id="{{cita._id}}" (click)="citasService.selectCita($event)" class="col  shadow cita m-0 border-start border-5 border-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"> 
+                          <div class="d-flex gap-2" >
+                            <p class="text-secondary p-hora">{{cita?.hora}}</p>
+                            <p class="m-0">{{cita?.paciente?.nombre}} {{cita?.paciente?.apellidos}}</p>
+                            @if(cita?.here == true){
+                              <p class="ms-auto"><i class="fa-solid fa-location-dot text-primary"></i></p>
+                            }
+                          </div>
+                          <p class="m-0">{{cita.motivo}}</p>
+                        </button>
+                        }
+                      
+                        
                     }
                   }
                 </div>
@@ -117,11 +160,52 @@
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <div class="offcanvas-header border-bottom">
+    <button type="button border" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-  <div class="offcanvas-body">
-    ...
+  <div class="offcanvas-body p-5">
+    <h3 class="offcanvas-title row" id="offcanvasRightLabel">{{citasService.selectedCita?.paciente?.nombre}} {{citasService.selectedCita?.paciente?.nombre}}</h3>
+    <p class="row d-flex justify-content-start row-12 align-items-center gap-2"><i class="fa-solid fa-phone text-primary col-1"></i> {{citasService.selectedCita?.paciente?.telefono}} </p>
+
+    <div>
+      <h5 class="row border-bottom mt-4 py-2">Cita</h5>
+      @if(citasService?.selectedCita?.estado == 'No realizada'){
+        <p class="fw-bold p-0 m-0 mt-2">Estado</p>
+        <p class="p-1 border-start border-5 border-primary"><i class="fa-solid fa-spinner"></i> {{citasService?.selectedCita?.estado}}</p>
+      }
+      @if(citasService?.selectedCita?.estado == 'Pago Pendiente'){
+        <p class="fw-bold p-0 m-0 mt-2">Estado</p>
+        <p class="p-1 border-start border-5 border-warning"><i class="fa-solid fa-comment-dollar"></i> {{citasService?.selectedCita?.estado}}</p>
+      }
+      @if(citasService?.selectedCita?.estado == 'Cancelada'){
+        <p class="fw-bold p-0 m-0 mt-2">Estado</p>
+        <p class="p-1 border-start border-5 border-danger"><i class="fa-solid fa-ban"></i> {{citasService?.selectedCita?.estado}}</p>
+      }
+      @if(citasService?.selectedCita?.estado == 'Cobrado'){
+        <p class="fw-bold p-0 m-0 mt-2">Estado</p>
+        <p class="p-1 border-start border-5 border-success"><i class="fa-solid fa-file-invoice-dollar"></i> {{citasService?.selectedCita?.estado}}</p>
+      }
+      <hr>
+      <label for="" class="text-secondary col-12">
+        <div class="d-flex justify-content-between gap-2 ">
+          <input class="form-control" type="date" name="fecha" id="" value="{{citasService?.selectedCita?.fecha}}" (change)="citasService.updateCitaProp($event)">
+          <input class="form-control" type="time" name="hora" id="" value="{{citasService?.selectedCita?.hora}}" (change)="citasService.updateCitaProp($event)">
+        </div>
+      </label>
+
+      
+
+      <div class="row-12 mt-3">
+        <button class="btn btn-warning col-12 d-flex justify-content-between align-items-center " (click)="citasService.pacienteHere()">
+          Paciente en la sala
+          <i class="fa-solid fa-location-dot"></i>
+        </button>
+
+        <button class="btn btn-danger col-12 d-flex justify-content-between align-items-center mt-2" (click)="citasService.cancelarCita()">
+          Cancelar cita
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

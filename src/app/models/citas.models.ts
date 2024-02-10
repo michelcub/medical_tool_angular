@@ -7,7 +7,9 @@ export interface Cita {
     paciente: Paciente;
     doctor?: string;
     motivo: string;
-    estado: 'No realizada' | 'Realizada' | 'Cancelada' | 'Cobrado'; // Puedes ajustar estos valores según los estados que manejes
+    estado: 'No realizada' | 'Pago Pendiente' | 'Cancelada' | 'Cobrado'; // Puedes ajustar estos valores según los estados que manejes
     semana: string;
     year: string;
+    here: boolean;
+    active: boolean;
   }
