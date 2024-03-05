@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { enviroments } from '../../../enviroments/enviroments';
+import { AuthService } from '../../services/auth/auth.service';
+
+
+
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
@@ -10,7 +14,7 @@ export class MyProfileComponent implements OnInit {
   user_id: any;
   file_selected: any;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.user_id = localStorage.getItem('user');
@@ -53,5 +57,10 @@ export class MyProfileComponent implements OnInit {
     
   
     console.log('PDF guardado');
+  }
+
+
+  logout() {
+    this.authService.logout();
   }
 }

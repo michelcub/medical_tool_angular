@@ -188,8 +188,8 @@
       <hr>
       <label for="" class="text-secondary col-12">
         <div class="d-flex justify-content-between gap-2 ">
-          <input class="form-control" type="date" name="fecha" id="" value="{{citasService?.selectedCita?.fecha}}" (change)="citasService.updateCitaProp($event)">
-          <input class="form-control" type="time" name="hora" id="" value="{{citasService?.selectedCita?.hora}}" (change)="citasService.updateCitaProp($event)">
+          <input class="form-control" type="date" name="fecha" id="" value="{{citasService?.selectedCita?.fecha|| ''}}" (change)="citasService.updateCitaProp($event)">
+          <input class="form-control" type="time" name="hora" id="" value="{{citasService?.selectedCita?.hora|| ''}}" (change)="citasService.updateCitaProp($event)">
         </div>
       </label>
 

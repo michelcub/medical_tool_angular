@@ -1,16 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { enviroments } from '../../../enviroments/enviroments';
 
+import { Component, Inject, OnInit } from '@angular/core';
+import { enviroments } from '../../../enviroments/enviroments';
+import { AuthService } from '../../services/auth/auth.service'; // Ajusta la ruta según sea necesario
+import { Router } from '@angular/router'; // Ajusta la ruta según sea necesario
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  userData : any = {}
-  constructor() { }
+  userData: any = {};
+
+  // Inyecta el AuthService en el constructor
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.checkAuthentication();
+  }
+
+  checkAuthentication() {
+    // Usa el método isAuthenticated del servicio AuthService
+    if (this.authService.isAuthenticated()) {
+      console.log('El usuario está autenticado');
+      console.log(this.authService.user);
+      console.log(this.authService.isLogged);
+      // Aquí puedes redirigir al usuario a otra página o realizar otra acción
+    } else {
+      console.log('El usuario no está autenticado');
+      console.log(this.authService.user);
+      console.log(this.authService.isLogged);
+      // Manejo de usuarios no autenticados
+    }
   }
 
   handleLogin(e: Event){
@@ -42,7 +62,11 @@ export class LoginComponent implements OnInit {
       //const user = JSON.parse(data)
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
-      window.location.href = '/pacientes'
+      this.authService.isLogged = true
+      this.authService.user = data.user
+      console.log('Success:', data);
+
+      this.router.navigateByUrl('/calendar')
     })
     .catch(error => {
       console.error('There has been a problem with your fetch operation:', error);
