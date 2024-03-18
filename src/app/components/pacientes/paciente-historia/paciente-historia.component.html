@@ -9,7 +9,10 @@
     </div>
 
     <div class="col-3 ms-auto d-flex justify-content-end">
-      <a class="btn btn-primary" [routerLink]="'episodio/new'"  >Crear nuevo episodio</a>
+      @if(citaId !== null){
+        <a class="btn btn-primary"  [routerLink]="['/pacientes', paciente_id, 'episodio', 'new', 'cita', citaId]">Crear nuevo episodio</a>
+
+      }
     </div>
   </div>
 

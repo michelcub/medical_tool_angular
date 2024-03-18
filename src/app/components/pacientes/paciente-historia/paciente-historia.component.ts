@@ -1,3 +1,4 @@
+import { Cita } from './../../../models/citas.models';
 import { Component, OnInit, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { enviroments } from '../../../../enviroments/enviroments';
@@ -14,6 +15,7 @@ export class PacienteHistoriaComponent implements OnInit {
   
   episodes: Episodio[] = [];
   paciente_id = ''
+  citaId = null
   constructor( private route: ActivatedRoute){
     this.episodes = []
   }
@@ -21,6 +23,8 @@ export class PacienteHistoriaComponent implements OnInit {
     this.episodes = []
     this.route.params.subscribe(params => {
       const id = params['id'];  // Replace
+      this.citaId = params['citaId'] || null
+      console.log(this.citaId)
       this.paciente_id = id;
       this.getAllEpisodes()
     })

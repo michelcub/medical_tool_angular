@@ -206,6 +206,25 @@
           <i class="fa-solid fa-chevron-right"></i>
         </button>
       </div>
+
+      <div class="row-12 mt-5">
+        <h6 class="row-12">Motivo</h6>
+        <textarea class="form-control">
+          {{citasService?.selectedCita?.motivo || ''}}
+        </textarea>
+
+
+        <button class="btn btn-primary col-12 d-flex justify-content-between align-items-center mt-2"  (click)="citasService.initEpisode()">
+          Iniciar consulta
+          <i class="fa-solid fa-laptop-medical"></i>
+        </button>
+        <button class="btn btn-success col-12 d-flex justify-content-between align-items-center mt-1" (click)="citasService.initEpisode()">
+          Realizar cobro
+          <i class="fa-solid fa-cash-register"></i>
+        </button>
+
+        
+      </div>
     </div>
   </div>
 </div>

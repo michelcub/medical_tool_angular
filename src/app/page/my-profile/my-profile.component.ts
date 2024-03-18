@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class MyProfileComponent implements OnInit {
   user_id: any;
   file_selected: any;
-
+  fileName: any;
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
@@ -30,16 +30,17 @@ export class MyProfileComponent implements OnInit {
   
   
   
-  savePDF() {
+  saveRecetaXml() {
     if (!this.file_selected) {
       console.error('No hay archivo seleccionado');
       return;
     }
-    fetch(enviroments['route-api'] + '/upload/', {
+    fetch(enviroments['route-api'] + '/uploads/', {
       method: 'POST',
       body: (() => {
         const formData = new FormData();
-        formData.append('file', this.file_selected); // 'file' debe coincidir con el nombre que espera tu backend
+        formData.append('xmlfile', this.file_selected); // 'file' debe coincidir con el nombre que espera tu backend
+        formData.append('user_id', this.user_id);
         return formData;
       })(),
       headers: {
@@ -50,13 +51,39 @@ export class MyProfileComponent implements OnInit {
     .then(response => response.json())
     .then(data => {
       console.log('Respuesta del servidor:', data);
+      let message = data.message
+      this.fileName = data.filename
     })
     .catch(error => {
       console.error('Error al subir el archivo:', error);
     });
-    
-  
-    console.log('PDF guardado');
+  }
+
+
+  asignarReceta() {
+    if (!this.fileName) {
+      console.error('No hay archivo seleccionado');
+      return;
+    }
+    fetch(enviroments['route-api'] + '/recetas/', {
+      method: 'POST',
+      body: JSON.stringify({
+        'user_id': this.user_id,
+        'xmlfile': this.fileName
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token'), // Asegúrate de que la ortografía de 'Authorization' es correcta
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Respuesta del servidor:', data);
+      let message = data.message
+    })
+    .catch(error => {
+      console.error('Error al subir el archivo:', error);
+    });
   }
 
 

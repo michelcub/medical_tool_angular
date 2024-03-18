@@ -45,12 +45,21 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'pacientes/:id/episodio/new',
+        path: 'pacientes/:id/cita/:citaId',
+        component: PacienteFileComponent,
+        canActivate: [
+            AuthGuard
+        ]
+    },
+    {
+        path: 'pacientes/:id/episodio/new/cita/:citaId',
         component: PacienteEpisodioNewComponent,
         canActivate: [
             AuthGuard
         ]
     },
+    
+    
     {
         path: 'pacientes/:id/episodio/:id',
         component: PacienteEpisodioComponent,

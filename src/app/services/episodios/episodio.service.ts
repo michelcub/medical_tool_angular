@@ -1,3 +1,4 @@
+import { Cita } from './../../models/citas.models';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Episodio } from '../../models/episodio.models';
@@ -9,7 +10,7 @@ import { enviroments } from '../../../enviroments/enviroments';
 export class EpisodioService {
   private consultaActualSubject: BehaviorSubject<Episodio | null> = new BehaviorSubject<Episodio | null>(null);
   public consultaActual: Observable<Episodio | null> = this.consultaActualSubject.asObservable();
-
+  citaId = ''
   constructor() {}
 
   iniciarConsulta(episodio: Episodio) {
@@ -68,7 +69,8 @@ generarCobro(episodioActual:Episodio, episodio_id:string):void{
         "monto": 100.00,
         "cobrado": false,
         "servicios": episodioActual.servicios,
-        "episodio_id": episodio_id
+        "episodio_id": episodio_id,
+        "cita_id": this.citaId
     })
   })
   .then(res => res.json())

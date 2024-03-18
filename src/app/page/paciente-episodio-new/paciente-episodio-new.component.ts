@@ -30,8 +30,9 @@ export class PacienteEpisodioNewComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       const id = params['id'];  // Replace
       this.paciente_id = id;
+      this.episodioService.citaId = params['citaId'] || ''
     })
-
+    
     this.subscription = this.episodioService.consultaActual.subscribe(
       episodio => {
         this.episodioActual = episodio;

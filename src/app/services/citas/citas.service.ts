@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { enviroments } from '../../../enviroments/enviroments';
 import { act } from '@ngrx/effects';
-
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CitasService {
@@ -52,7 +52,7 @@ export class CitasService {
   year: any;
   monthName: any;
 
-  constructor() { 
+  constructor(private router: Router) { 
     this.toDay = moment().format('dddd, DD/MM');
     console.log(this.toDay);
     this.currentWeek = this.currentDate.week();
@@ -279,6 +279,13 @@ updateCalendar(){
   pacienteHere(){
     this.selectedCita.here = true
     this.updateCita()
+  }
+
+  initEpisode(){
+    this.selectedCita.estado = 'Pago Pendiente'
+    this.updateCita()
+    console.log(`/pacientes/${this.selectedCita.paciente._id}/cita/${this.selectedCita._id}`)
+    this.router.navigateByUrl(`/pacientes/${String(this.selectedCita.paciente._id)}/cita/${this.selectedCita._id}`)
   }
 
 }

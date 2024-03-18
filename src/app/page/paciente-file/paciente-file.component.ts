@@ -15,13 +15,16 @@ import { Paciente } from '../../models/paciente.models';
 })
 export class PacienteFileComponent implements OnInit {
   paciente : any = {}
+  cita = null
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];  // Replace
+      const citaId = params['citaId'];  // Replace
       console.log(id)
       this.getPatient(id)
+      
     })
   }
   
