@@ -21,6 +21,7 @@ export class PacienteEpisodioNewComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   paciente_id = null;
   employee_id = '';
+  
   constructor(private router: Router, private route: ActivatedRoute, private episodioService: EpisodioService) { 
     this.episodioActual = null;
     this.subscription = new Subscription();
@@ -54,6 +55,7 @@ export class PacienteEpisodioNewComponent implements OnInit, OnDestroy {
       paciente_id: String(this.paciente_id),
       employee_id: this.employee_id,
       cobrado: false,
+      cita_id : this.episodioService.citaId
     };
     console.log(nuevoEpisodio);
     this.episodioService.iniciarConsulta(nuevoEpisodio);

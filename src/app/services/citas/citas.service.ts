@@ -22,14 +22,14 @@ export class CitasService {
   
   toDay :any
 
-
+  
   currentDate = moment();
   currentWeek: any
   selectedDay: any = {
     date: '',
     time: '',
   }
-
+  cobros:any
   showModal = ''
   
   pacienteList: any[] = []
@@ -276,6 +276,13 @@ updateCalendar(){
     this.updateCita()
   }
 
+  activarCita(){
+    this.selectedCita.active = true
+    this.selectedCita.estado = 'No realizada'
+    this.updateCita()
+  
+  }
+
   pacienteHere(){
     this.selectedCita.here = true
     this.updateCita()
@@ -286,6 +293,23 @@ updateCalendar(){
     this.updateCita()
     console.log(`/pacientes/${this.selectedCita.paciente._id}/cita/${this.selectedCita._id}`)
     this.router.navigateByUrl(`/pacientes/${String(this.selectedCita.paciente._id)}/cita/${this.selectedCita._id}`)
+  }
+
+  getPagos(){
+    let paciente_id = this.selectedCita.paciente._id
+    console.log(paciente_id)
+    fetch(enviroments['route-api'] + `/pagos/paciente/${paciente_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+    })
+    .then((res) => res.json())
+    .then(data => {
+      console.log('aqui--------- ' + data)
+      this.cobros = data
+    })
   }
 
 }

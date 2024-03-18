@@ -16,5 +16,6 @@ export interface Episodio {
     cobrado: boolean;
     servicios?: string[];
     date?: string;
+    cita_id?: string;
   }
   
