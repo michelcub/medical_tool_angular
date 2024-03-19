@@ -283,6 +283,11 @@ updateCalendar(){
   
   }
 
+  cobrarCita(){
+    this.selectedCita.estado = 'Cobrado'
+    this.updateCita()
+  }
+
   pacienteHere(){
     this.selectedCita.here = true
     this.updateCita()
