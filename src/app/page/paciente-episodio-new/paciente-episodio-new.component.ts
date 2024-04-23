@@ -65,6 +65,8 @@ export class PacienteEpisodioNewComponent implements OnInit, OnDestroy {
     this.episodioService.finalizarConsulta();
     this.router.navigate([`/pacientes/${this.paciente_id}/`])
   }
+
+  
   
 
 }

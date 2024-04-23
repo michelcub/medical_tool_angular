@@ -168,28 +168,28 @@
 
     <div>
       <h5 class="row border-bottom mt-4 py-2">Cita</h5>
-      @if(citasService?.selectedCita?.estado == 'No realizada'){
+      @if(citasService.selectedCita?.estado == 'No realizada'){
         <p class="fw-bold p-0 m-0 mt-2">Estado</p>
-        <p class="p-1 border-start border-5 border-primary"><i class="fa-solid fa-spinner"></i> {{citasService?.selectedCita?.estado}}</p>
+        <p class="p-1 border-start border-5 border-primary"><i class="fa-solid fa-spinner"></i> {{citasService.selectedCita?.estado}}</p>
       }
-      @if(citasService?.selectedCita?.estado == 'Pago Pendiente'){
+      @if(citasService.selectedCita?.estado == 'Pago Pendiente'){
         <p class="fw-bold p-0 m-0 mt-2">Estado</p>
-        <p class="p-1 border-start border-5 border-warning"><i class="fa-solid fa-comment-dollar"></i> {{citasService?.selectedCita?.estado}}</p>
+        <p class="p-1 border-start border-5 border-warning"><i class="fa-solid fa-comment-dollar"></i> {{citasService.selectedCita?.estado}}</p>
       }
-      @if(citasService?.selectedCita?.estado == 'Cancelada'){
+      @if(citasService.selectedCita?.estado == 'Cancelada'){
         <p class="fw-bold p-0 m-0 mt-2">Estado</p>
-        <p class="p-1 border-start border-5 border-danger"><i class="fa-solid fa-ban"></i> {{citasService?.selectedCita?.estado}}</p>
+        <p class="p-1 border-start border-5 border-danger"><i class="fa-solid fa-ban"></i> {{citasService.selectedCita?.estado}}</p>
       }
-      @if(citasService?.selectedCita?.estado == 'Cobrado'){
+      @if(citasService.selectedCita?.estado == 'Cobrado'){
         <p class="fw-bold p-0 m-0 mt-2">Estado</p>
-        <p class="p-1 border-start border-5 border-success"><i class="fa-solid fa-user-check"></i> {{citasService?.selectedCita?.estado}}</p>
+        <p class="p-1 border-start border-5 border-success"><i class="fa-solid fa-user-check"></i> {{citasService.selectedCita?.estado}}</p>
       }
-      @if(citasService?.selectedCita?.estado !='Cancelada'){
+      @if(citasService.selectedCita?.estado !='Cancelada'){
       <hr>
       <label for="" class="text-secondary col-12">
         <div class="d-flex justify-content-between gap-2 ">
-          <input class="form-control" type="date" name="fecha" id="" value="{{citasService?.selectedCita?.fecha|| ''}}" (change)="citasService.updateCitaProp($event)">
-          <input class="form-control" type="time" name="hora" id="" value="{{citasService?.selectedCita?.hora|| ''}}" (change)="citasService.updateCitaProp($event)">
+          <input class="form-control" type="date" name="fecha" id="" value="{{citasService.selectedCita.fecha|| ''}}" (change)="citasService.updateCitaProp($event)">
+          <input class="form-control" type="time" name="hora" id="" value="{{citasService.selectedCita.hora|| ''}}" (change)="citasService.updateCitaProp($event)">
         </div>
       </label>
 
@@ -201,7 +201,7 @@
           <i class="fa-solid fa-location-dot"></i>
         </button>
 
-        @if(citasService?.selectedCita?.estado == 'No realizada'){
+        @if(citasService.selectedCita.estado == 'No realizada'){
           <button class="btn btn-danger col-12 d-flex justify-content-between align-items-center mt-2" (click)="citasService.cancelarCita()">
             Cancelar cita
             <i class="fa-solid fa-chevron-right"></i>
@@ -218,10 +218,10 @@
       <div class="row-12 mt-5">
         <h6 class="row-12">Motivo</h6>
         <textarea class="form-control">
-          {{citasService?.selectedCita?.motivo || ''}}
+          {{citasService.selectedCita.motivo || ''}}
         </textarea>
 
-        @if(citasService?.selectedCita?.estado == 'Pago Pendiente'){
+        @if(citasService.selectedCita.estado == 'Pago Pendiente'){
           <button class="btn btn-primary col-12 d-flex justify-content-between align-items-center mt-2"  (click)="citasService.initEpisode()">
             Ir a consulta
             <i class="fa-solid fa-laptop-medical"></i>
@@ -234,7 +234,7 @@
           </button>
         }
         
-        @if(citasService?.selectedCita?.estado == 'Pago Pendiente'){
+        @if(citasService.selectedCita.estado == 'Pago Pendiente'){
           <button type="button" class="btn btn-success col-12 d-flex justify-content-between align-items-center mt-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="citasService.getPagos()">
             Realizar cobro
             <i class="fa-solid fa-cash-register"></i>
@@ -269,7 +269,7 @@
       </div>
       <div class="modal-body row">
         @if(citasService.cobros ){
-          @for(cobro of citasService?.cobros; track cobro){
+          @for(cobro of citasService.cobros; track cobro){
             <div class="position-relative d-flex col col-12 w-100">
               <div class="position-absolute top-25 end-0 z-3 ">
                 <button class="btn btn-outline-primary fs-5 me-2"><i class="fa-solid fa-print"></i></button>

@@ -39,7 +39,7 @@ export class MyProfileComponent implements OnInit {
       method: 'POST',
       body: (() => {
         const formData = new FormData();
-        formData.append('xmlfile', this.file_selected); // 'file' debe coincidir con el nombre que espera tu backend
+        formData.append('pdffile', this.file_selected); // 'file' debe coincidir con el nombre que espera tu backend
         formData.append('user_id', this.user_id);
         return formData;
       })(),

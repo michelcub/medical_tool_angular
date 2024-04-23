@@ -25,6 +25,7 @@ export class EpisodioService {
     const episodioActual = this.consultaActualSubject.value;
     let episodio_id
     episodioActual?.servicios?.push('consulta') 
+    
     if (episodioActual) {
 
         //guardar episodio
@@ -42,6 +43,8 @@ export class EpisodioService {
             episodio_id = data._id
             console.log('episodio_id------ ' + episodio_id)
             this.generarCobro(episodioActual, episodio_id)
+            console.log('+++++++++++', episodioActual)
+            this.imprimirReceta(episodioActual)
           })
           .catch(error => console.error('Error:', error));
 
@@ -77,5 +80,43 @@ generarCobro(episodioActual:Episodio, episodio_id:string):void{
   .then(data => console.log(data))
   .catch(error => console.error('Error:', error));
 }
+
+imprimirReceta(episodio:any):void{
+  console.log(episodio)
+  fetch(enviroments['route-api'] + '/recetas/',{
+    method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        body: JSON.stringify({
+          "paciente_id": episodio.paciente_id,
+          "doctor_id": JSON.parse(episodio.employee_id),
+          "recetas": episodio.prescripcion,
+        })
+})
+.then(res => res.blob()) // Convertir la respuesta a un objeto Blob
+.then(blob => {
+  // Crear una URL de objeto para el Blob
+  const url = URL.createObjectURL(blob);
+  // Abrir la URL en una nueva pestaña
+  const ventanaImpresion = window.open(url, '_blank');
+  // Verificar si la ventana se abrió correctamente
+  if (ventanaImpresion) {
+    // Esperar a que se cargue la ventana y luego imprimir
+    ventanaImpresion.onload = function() {
+      ventanaImpresion.print();
+    };
+  } else {
+    console.error('No se pudo abrir la ventana de impresión.');
+  }
+  // Liberar la URL de objeto después de un tiempo para evitar pérdidas de memoria
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+})
+.catch(error => {
+  console.error('Error al imprimir la receta:', error);
+});
+}
+
 
 }
