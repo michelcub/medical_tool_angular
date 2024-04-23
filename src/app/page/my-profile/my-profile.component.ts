@@ -53,6 +53,7 @@ export class MyProfileComponent implements OnInit {
       console.log('Respuesta del servidor:', data);
       let message = data.message
       this.fileName = data.filename
+      console.log(data)
     })
     .catch(error => {
       console.error('Error al subir el archivo:', error);
