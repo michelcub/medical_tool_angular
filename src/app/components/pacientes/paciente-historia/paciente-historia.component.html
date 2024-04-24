@@ -37,30 +37,58 @@
                 
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                <div class="row px-4">
-                  <h4 class="row">Anamnesis</h4>
-                  <p class="row">{{episode.anamnesis}}</p>
-                </div>
-                <div class="row px-4">
-                  <h4 class="row">Sintomas</h4>
-                  <p class="row">{{episode.sintomas}}</p>
-                </div>
-                <div class="row px-4">
-                  <h4 class="row">Diagnostico</h4>
-                  <p class="row">{{episode.diagnostico}}</p>
-                </div>
-                <div class="row px-4">
-                  <h4 class="row">Comentarios</h4>
-                  <p class="row">{{episode.comentarios}}</p>
-                </div>
-                <div class="row px-4">
-                  <h4 class="row">Prescripcion</h4>
-                  <ul>
-                    @for(medicamento of episode?.prescripcion; track medicamento.nregistro){
-                      <li>{{medicamento.nombre}}</li>
-                    }
-                  </ul>
-                </div>
+                
+                @if(episode.anamnesis){
+                  <div class="row px-4">
+                    <h4 class="row">Anamnesis</h4>
+                    <p class="row">{{episode.anamnesis}}</p>
+                  </div>
+                }
+                @if(episode.exploracion){
+                  <div class="row px-4">
+                    <h4 class="row">Sintomas</h4>
+                    <p class="row">{{episode.exploracion}}</p>
+                  </div>
+                }
+                @if(episode.diagnostico){
+                  <div class="row px-4">
+                    <h4 class="row">Diagnostico</h4>
+                    <p class="row">{{episode.diagnostico}}</p>
+                  </div>
+                }
+                
+                @if(episode.pruebas_complementarias){
+                  <div class="row px-4">
+                    <h4 class="row">Diagnostico</h4>
+                    <p class="row">{{episode.pruebas_complementarias}}</p>
+                  </div>
+                }
+                @if(episode.tratamiento){
+                  <div class="row px-4">
+                    <h4 class="row">Diagnostico</h4>
+                    <p class="row">{{episode.tratamiento}}</p>
+                  </div>
+                }
+                @if(episode.detalles){
+                  <div class="row px-4">
+                    <h4 class="row">Detalles</h4>
+                    <p class="row">{{episode.detalles}}</p>
+                  </div>
+                }
+                @if(episode.prescripcion){
+                  <div class="row px-4">
+                    <h4 class="row">Prescripcion</h4>
+                    <ul>
+                      @for(medicamento of episode?.prescripcion; track medicamento.nregistro){
+                        <li>{{medicamento.nombre}}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+                
+                
+                
+                
   
               </div>
             </div>

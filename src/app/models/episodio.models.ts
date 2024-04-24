@@ -7,9 +7,11 @@ export interface Episodio {
     altura?: string;
     imc?: string;
     anamnesis?: string;
-    sintomas?: string;
+    exploracion?: string;
     diagnostico?: string;
-    comentarios?: string;
+    pruebas_complementarias?: string;
+    tratamiento?: string;
+    detalles?: string;
     prescripcion?: any[];
     documentos?: string[];
     imagenes?: string[];

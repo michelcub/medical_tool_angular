@@ -66,4 +66,50 @@ export class PacienteEpisodioFormComponent implements OnInit {
     }
   }
 
+  showInput(event:Event){
+    const inputElement = event.target as HTMLInputElement;
+    let parent = inputElement.parentElement;
+    
+    if(parent?.tagName === 'BUTTON'){
+      parent = parent.parentElement;
+    }
+    
+    if(parent === null || parent === undefined){
+      return
+    }else{
+      let btnOpen = parent?.querySelector('.btn_open')
+      btnOpen!==null && btnOpen.classList.add('d-none')
+      let btnClose = parent?.querySelector('.btn_close')
+      btnClose !== null && btnClose.classList.remove('d-none')
+    }
+    
+    parent = parent?.parentElement;
+    console.log(parent)
+    let input = parent?.querySelector('.text-area')
+    if(input){
+      input.classList.remove('d-none')
+    }
+    console.log(input)
+  }
+
+  hideInput(event:Event){
+    const inputElement = event.target as HTMLInputElement;
+    let parent = inputElement.parentElement;
+    if(parent?.tagName === 'BUTTON'){
+      parent = parent.parentElement;
+    }
+    if(parent === null || parent === undefined){
+      return
+    }else{
+      let btnOpen = parent?.querySelector('.btn_open')
+      btnOpen!==null && btnOpen.classList.remove('d-none')
+      let btnClose = parent?.querySelector('.btn_close')
+      btnClose !== null && btnClose.classList.add('d-none')
+    }
+    parent = parent?.parentElement;
+    let input = parent?.querySelector('.text-area')
+    if(input){
+      input.classList.add('d-none')
+    }
+  }
 }

@@ -22,30 +22,75 @@
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
-        <h4>Anamnesis</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="anamnesis" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
+        <div class="row">
+          
+          <button class="col-1 bg-white border-0 btn_open" (click)="showInput($event)"><i class="fa-solid fa-chevron-down ms-auto"></i></button>
+          <button class="col-1 bg-white border-0 btn_close d-none" (click)="hideInput($event)">  <i class="fa-solid fa-angle-up"> </i></button>
+          <h4 class="col">Anamnesis</h4>
+        </div>
+        <textarea class="form-control border-0 text-area d-none" placeholder="Escriba aqui" name="anamnesis" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
-        <h4>Sintomas</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="sintomas" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
+        <div class="row">
+          <button class="col-1 bg-white border-0 btn_open" (click)="showInput($event)"><i class="fa-solid fa-chevron-down ms-auto"></i></button>
+          <button class="col-1 bg-white border-0 btn_close d-none" (click)="hideInput($event)">  <i class="fa-solid fa-angle-up"> </i></button>
+          <h4 class="col">Exploracion</h4>
+        </div>
+        <textarea class="form-control border-0 text-area d-none" placeholder="Escriba aqui" name="sintomas" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
-        <h4>Diagnostico</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="diagnostico" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
+        
+        <div class="row">
+          
+          <button class="col-1 bg-white border-0 btn_open" (click)="showInput($event)"><i class="fa-solid fa-chevron-down ms-auto"></i></button>
+          <button class="col-1 bg-white border-0 btn_close d-none" (click)="hideInput($event)">  <i class="fa-solid fa-angle-up"> </i></button>
+          <h4 class="col">Diagnostico</h4>
+        </div>
+        <textarea class="form-control border-0 text-area d-none" placeholder="Escriba aqui" name="diagnostico" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
       <label for="" class="col-10 ">
-        <h4>Comentarios</h4>
-        <textarea class="form-control border-0" placeholder="Escriba aqui" name="comentarios" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
+        <div class="row">
+          
+          <button class="col-1 bg-white border-0 btn_open" (click)="showInput($event)"><i class="fa-solid fa-chevron-down ms-auto"></i></button>
+          <button class="col-1 bg-white border-0 btn_close d-none" (click)="hideInput($event)">  <i class="fa-solid fa-angle-up"> </i></button>
+          <h4 class="col">Pruebas complementarias</h4>
+        </div>
+        <textarea class="form-control border-0 text-area d-none" placeholder="Escriba aqui" name="pruebas_complementarias" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
       </label>
+    </div>
+
+    <div class="row p-2 d-flex justify-content-center">
+      <label for="" class="col-10 ">
+        <div class="row">
+          
+          <button class="col-1 bg-white border-0 btn_open" (click)="showInput($event)"><i class="fa-solid fa-chevron-down ms-auto"></i></button>
+          <button class="col-1 bg-white border-0 btn_close d-none" (click)="hideInput($event)">  <i class="fa-solid fa-angle-up"> </i></button>
+          <h4 class="col">Tratamiento</h4>
+        </div>
+        <textarea class="form-control border-0 text-area d-none" placeholder="Escriba aqui" name="tratamiento" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
+      </label>
+    </div>
+
+    <div class="row p-2 d-flex justify-content-center">
+      <div for="" class="col-10 ">
+        <div class="row">
+          
+          <button class="col-1 bg-white border-0 btn_open" (click)="showInput($event)"><i class="fa-solid fa-chevron-down ms-auto"></i></button>
+          <button class="col-1 bg-white border-0 btn_close d-none" (click)="hideInput($event)">  <i class="fa-solid fa-angle-up"> </i></button>
+          <h4 class="col">Detalles de la cita</h4>
+        </div>
+        
+        <textarea class="form-control border-0 text-area d-none" placeholder="Escriba aqui" name="detalles" id="" cols="30" rows="2" (input)="actualizarConsulta($event)"></textarea>
+      </div>
     </div>
 
     <div class="row p-2 d-flex justify-content-center">
