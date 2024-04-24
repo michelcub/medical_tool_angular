@@ -16,7 +16,7 @@ export class PacienteHistoriaComponent implements OnInit {
   episodes: Episodio[] = [];
   paciente_id = ''
   citaId = null
-  constructor( private route: ActivatedRoute){
+  constructor( private route: ActivatedRoute, ){
     this.episodes = []
   }
   ngOnInit() {
@@ -27,6 +27,10 @@ export class PacienteHistoriaComponent implements OnInit {
       console.log(this.citaId)
       this.paciente_id = id;
       this.getAllEpisodes()
+      
+      
+      
+      
     })
   }
 
@@ -43,7 +47,7 @@ export class PacienteHistoriaComponent implements OnInit {
     .then((res) => res.json())
     .then(data => {
       console.log('aqui--------- ' + data)
-      this.episodes = data
+      this.episodes = data.reverse()
     })
   }
 

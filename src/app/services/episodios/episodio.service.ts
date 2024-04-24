@@ -44,7 +44,10 @@ export class EpisodioService {
             console.log('episodio_id------ ' + episodio_id)
             this.generarCobro(episodioActual, episodio_id)
             console.log('+++++++++++', episodioActual)
-            this.imprimirReceta(episodioActual)
+            if(episodioActual && episodioActual.prescripcion && episodioActual.prescripcion.length > 0){
+              this.imprimirReceta(episodioActual)
+            }
+            
           })
           .catch(error => console.error('Error:', error));
 

@@ -41,7 +41,7 @@ export class PacientePagosComponent implements OnInit {
     .then((res) => res.json())
     .then(data => {
       console.log('aqui--------- ' + data)
-      this.cobros = data
+      this.cobros = data.reverse()
     })
   }
 

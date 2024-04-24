@@ -1,5 +1,6 @@
 // consulta.model.ts
 export interface Episodio {
+    _id?: string;
     paciente_id: string;
     employee_id: string;
     employee_charge?: string;

@@ -24,3 +24,9 @@ body{
   height: 100vh;
   overflow: auto;
 }
+
+@media print {
+  .not-printable {
+    visibility: hidden;
+  }
+}

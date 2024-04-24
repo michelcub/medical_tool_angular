@@ -11,6 +11,7 @@ import { PacienteEpisodioComponent } from './page/paciente-episodio/paciente-epi
 import { MyProfileComponent } from './page/my-profile/my-profile.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PrintHistoriaComponent } from './page/print-historia/print-historia.component';
 
 export const routes: Routes = [
     {
@@ -77,6 +78,13 @@ export const routes: Routes = [
     {
         path:'calendar',
         component: CalendarComponent,
+        canActivate: [
+            AuthGuard
+        ]
+    },
+    {
+        path:'historia/:id',
+        component: PrintHistoriaComponent,
         canActivate: [
             AuthGuard
         ]
