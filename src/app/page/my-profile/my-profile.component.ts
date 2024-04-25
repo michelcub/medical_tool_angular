@@ -13,13 +13,26 @@ import { AuthService } from '../../services/auth/auth.service';
 export class MyProfileComponent implements OnInit {
   user_id: any;
   file_selected: any;
-  fileName: any;
+  fileName: String = '';
+  userName: String = '';
+  userLastname: String = '';
+  user_rol: String = '';
+  user_num_colegiado:any;
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.user_id = localStorage.getItem('user');
     console.log(this.user_id);
-  
+    this.userName = this.authService.userName;
+    this.userLastname = this.authService.userLastname;
+    this.user_rol = this.authService.user_rol;
+    this.user_num_colegiado = this.authService.user_num_colegiado;
+
+    console.log(this.userName);
+    console.log(this.userLastname);
+    console.log(this.user_rol);
+    console.log(this.user_num_colegiado);
+    
     
   }
 

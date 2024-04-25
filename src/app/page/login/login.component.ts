@@ -59,13 +59,16 @@ export class LoginComponent implements OnInit {
       return response.json();
     })
     .then(data => {
-      //const user = JSON.parse(data)
+    console.log(data)
+
+      const user = data
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
-      this.authService.isLogged = true
-      this.authService.user = data.user
-      console.log('Success:', data);
-
+      localStorage.setItem('userName', data.user_name)
+      localStorage.setItem('userLastname', data.user_last_name)
+      localStorage.setItem('user_rol', data.user_rol)
+      localStorage.setItem('user_num_colegiado', data.user_num_colegiado)
+      
       this.router.navigateByUrl('/calendar')
     })
     .catch(error => {

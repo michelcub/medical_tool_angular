@@ -7,10 +7,19 @@ export class AuthService {
 
   isLogged: boolean = false;
   user = ''
+  userName = ''
+  userLastname = ''
+  user_rol = ''
+  user_num_colegiado:any
   constructor(private router: Router) {
     if(localStorage.getItem('token')){
       this.isLogged = true
       this.user = localStorage.getItem('user')||''
+      this.userName = localStorage.getItem('userName')||''
+      this.userLastname = localStorage.getItem('userLastname')||''
+      this.user_rol = localStorage.getItem('user_rol')||''
+      this.user_num_colegiado = localStorage.getItem('user_num_colegiado')
+
     }
    }
 
