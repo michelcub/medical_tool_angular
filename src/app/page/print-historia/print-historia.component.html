@@ -1,59 +1,176 @@
 <section class="contenedor container-fluid">
   <div class="row not-printable">
     <button class="btn  col-2 ms-auto" (click)="print()"><i class="fa-solid fa-print"></i> Imprimir</button>
-    <button class="btn  col-2"><i class="fa-solid fa-gear"></i> Personalizar</button>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn  col-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa-solid fa-gear"></i> Personalizar
+    </button>
   </div>
   <section class="container-fluid">
+    <div>
+      <img src="assets/images/logo.jpg" alt="logo S&M doctors" class="w-25">
+    </div>
     <div class="">
-      <h4 class="row mb-5">Historia Clinica</h4>
-      <div class="row d-flex justify-content-center ">
-        <div class="col-6 border p-3 ps-4">
-          <h6 class="row">Paciente</h6>
-          <p class="row">Nombre: Juan Perez</p>
-          <p class="row">Edad: 25</p>
-          <p class="row">Sexo: Masculino</p>
+      <div class="row d-flex justify-content-center p-0">
+        <div class="col-6 border p-1  info-panel m-0">
+          <p  class="p-0 m-0">Nro. Historia: {{episode?._id}}</p>
+          <p class="p-0 m-0">Nombre: {{patient?.apellidos.toUpperCase()}}, {{patient?.nombre.toUpperCase()}} </p>
+          <p class="p-0 m-0">Fecha de nacimiento: {{patient?.fecha_nacimiento.split('-').reverse().join('/')}}</p>
+          <p class="p-0 m-0">Sexo: {{patient?.sexo.toUpperCase()}}</p>
+          <p class="p-0 m-0">DNI: {{patient?.documento_identidad.toUpperCase()}}</p>
+          <p class="p-0 m-0">Direccion: {{patient?.calle.toUpperCase() || '-'}}, {{patient?.numero.toUpperCase() || ''}}, {{patient?.puerta.toUpperCase() || ''}}</p>
+          <p class="p-0 m-0">{{patient?.cp.toUpperCase() || ''}}, {{patient?.ciudad.toUpperCase() || ''}}, {{patient?.pais.toUpperCase() || ''}}</p>
+          <p class="p-0 m-0">Email: {{patient?.email|| '-'}}</p>
         </div>
-        <div class="col-6 col-6 border p-3 ps-4">
-          <h6 class="row">Episodio</h6>
-          <p class="row">Fecha: 12/12/2021</p>
-          <p class="row">Motivo: Dolor de cabeza</p>
-          <p class="row">Medico: Dr. Juan</p>
+        <div class="col-6 border p-1  info-panel m-0">
+          <p class="p-0 m-0">Medico: {{doctor?.last_name.toUpperCase()}}, {{doctor?.name.toUpperCase()}}</p>
+          <p class="p-0 m-0">Nro Colegiado: {{doctor?.num_colegiado}}</p>
+          <p class="p-0 m-0">Medicina de Familia</p>
+          <p class="p-0 m-0">Fecha: {{episode?.date}}</p>
         </div>
       </div>
     </div>
   
   
-    <div id="row">
-      <div class="row">
-        <h4 class="row">Anamnesis</h4>
-        <p class="row">Lorem ipsum dolor sit amet consectetur adipisicing elit
-      </div>
+    <div >
+      @if(episode?.anamnesis && show?.anamnesis){
+        <div >
+          <h6 >Anamnesis</h6>
+          <p >{{episode.anamnesis}}</p>
+        </div>
+        
+      }
+      
+      @if(episode?.exploracion && show?.exploracion){
+        <div >
+          <h6 >Exploracion</h6>
+          <p >{{episode.exploracion}}</p>
+        </div>
+      }
     
-      <div class="row">
-        <h4 class="row">Exploracion</h4>
-        <p class="row">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-      </div>
-    
-      <div class="row">
-        <h4 class="row">Diagnostico</h4>
-        <p class="row">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-      </div>
-    
-      <div class="row">
-        <h4 class="row">Pruebas Complementarias</h4>
-        <p class="row">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-      </div>
-    
-      <div class="row">
-        <h4 class="row">Tratamiento</h4>
-        <p class="row">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-      </div>
-    
-      <div class="row">
-        <h4 class="row">Detalles</h4>
-        <p class="row">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-      </div>
+      @if(episode?.diagnostico && show?.diagnostico){
+        <div >
+          <h6 >Diagnostico</h6>
+          <p >{{episode.diagnostico}}</p>
+        </div>
+      }
+
+      @if(episode?.pruebas_complementarias && show?.pruebas_complementarias){
+        <div >
+          <h6 >Pruebas Complementarias</h6>
+          <p >{{episode.pruebas_complementarias}}</p>
+        </div>
+      }
+
+      
+      @if(episode?.tratamiento && show?.tratamiento){
+        <div >
+          <h6 >Tratamiento</h6>
+          <p >{{episode.tratamiento}}</p>
+        </div>
+      }
+
+      @if(episode?.detalles && show?.detalles){
+        <div >
+          <h6 >Detalles</h6>
+          <p >{{episode.detalles}}</p>
+        </div>
+      }
+
+      <div class="page-break"></div>
+
+
+      
+      @if(episode?.prescripcion && episode?.prescripcion.length > 0 && show?.prescription){
+        <div>
+          <h6 class="row p-2">Recetas</h6>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Medicamento</th>
+                <th>Unidades</th>
+                <th>Duracion</th>
+                <th>Pauta</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if(episode?.prescripcion && episode?.prescripcion.length > 0){
+                @for(receta of episode?.prescripcion; track $index){
+                  <tr >
+                    <td>{{receta.nombre}}</td>
+                    <td>{{receta.unidades}}</td>
+                    <td>{{receta.duracion}}</td>
+                    <td>{{receta.pauta}}</td>
+                  </tr>
+                }
+              }
+              
+            </tbody>
+          </table>
+        </div>
+      }
+      
     </div>
+
+
   
   </section>
 </section>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Personalizar informe</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Selecciona los campos que quieras mostrar</h6>
+        
+        
+        <div class="form-check">
+          <input class="form-check-input"  type="checkbox" id="anamnesis" name="anamnesis" value="show_anamnesis"  [checked]="show?.anamnesis" (click)="showHide($event)">
+          <label class="form-check-label" for="anamnesis"> Anamnesis</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="exploracion" name="exploracion" value="show_exploracion" [checked]="show?.exploracion" (click)="showHide($event)">
+          <label class="form-check-label" for="exploracion"> Exploracion</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="diagnostico" name="diagnostico" value="show_diagnostico" [checked]="show?.diagnostico" (click)="showHide($event)">
+          <label class="form-check-label" for="diagnostico"> Diagnostico</label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="pruebas_complementarias" name="pruebas_complementarias" value="show_pruebas_complementarias" [checked]="show?.pruebas_complementarias" (click)="showHide($event)">
+          <label class="form-check-label" for="pruebas_complementarias"> Pruebas Complementarias</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="tratamiento" name="tratamiento" value="show_tratamiento" [checked]="show?.tratamiento" (click)="showHide($event)">
+          <label class="form-check-label"  for="tratamiento"> Tratamiento</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="detalles" name="detalles" value="show_detalles" [checked]="show?.detalles" (click)="showHide($event)">
+          <label class="form-check-label" for="detalles"> Detalles</label>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="prescription" name="prescription" value="show_prescription" [checked]="show?.prescription" (click)="showHide($event)">
+          <label class="form-check-label" for="prescription"> Recetas</label>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

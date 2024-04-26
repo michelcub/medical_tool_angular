@@ -12,6 +12,7 @@ import { MyProfileComponent } from './page/my-profile/my-profile.component';
 import { CalendarComponent } from './page/calendar/calendar.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PrintHistoriaComponent } from './page/print-historia/print-historia.component';
+import { PrintFitToFlyComponent } from './page/print-fit-to-fly/print-fit-to-fly.component';
 
 export const routes: Routes = [
     {
@@ -85,6 +86,13 @@ export const routes: Routes = [
     {
         path:'historia/:id',
         component: PrintHistoriaComponent,
+        canActivate: [
+            AuthGuard
+        ]
+    },
+    {
+        path:'fittofly/:id',
+        component: PrintFitToFlyComponent,
         canActivate: [
             AuthGuard
         ]

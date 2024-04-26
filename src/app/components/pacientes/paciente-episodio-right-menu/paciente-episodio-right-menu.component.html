@@ -1,14 +1,17 @@
 <div class="row px-5 mt-5">
-  <button class="btn btn-outline-info col" data-bs-toggle="modal" data-bs-target="#prescripcion"><i class="fa-solid fa-pills" ></i> Crear prescripcion</button>
+  <button class="btn btn-outline-info col" data-bs-toggle="modal" data-bs-target="#prescripcion"><i class="fa-solid fa-pills" ></i> Crear Receta</button>
 </div>
 <div class="row px-5 mt-2">
-  <button class="btn btn-info col"><i class="fa-solid fa-bed-pulse" (click)="this.imprimirRecetas()"></i> Enfermeria</button>
+  <button class="btn btn-info col"><i class="fa-solid fa-bed-pulse"></i> Enfermeria</button>
+</div>
+<div class="row px-5 mt-2">
+  <a class="btn btn-warning col" (click)="redirectToFitToFly()"><i class="fa-solid fa-plane-departure"></i> Fit to Fly</a>
 </div>
 
-<div class="row">
+<div class="row d-none">
   <ul class="col d-flex flex-column align-items-start p-5">
     <li class="row">
-      <button class="btn"><i class="fa-solid fa-file-medical"></i> Historial</button>
+      <button class="btn "><i class="fa-solid fa-file-medical"></i> Historial</button>
     </li>
     <li class="row">
       <button class="btn"><i class="fa-solid fa-paperclip"></i> Adjuntar Documento</button>
@@ -21,7 +24,7 @@
 </div>
 
 
-<div class="row px-5">
+<div class="row px-5 mt-5">
   <h5>Servicios</h5>
   <ul class="row">
     <li>Consulta</li>
@@ -32,7 +35,7 @@
 
 
 
-<!-- Button trigger prescripcion -->
+
 <div class="modal modal-xl" id="prescripcion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">

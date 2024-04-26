@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Episodio } from '../../../models/episodio.models';
 import { EpisodioService } from '../../../services/episodios/episodio.service';
 import { Subscription } from 'rxjs';
+import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-episodio-right-menu',
   templateUrl: './paciente-episodio-right-menu.component.html',
   styleUrls: ['./paciente-episodio-right-menu.component.css'],
+  imports: [RouterModule],
   standalone: true,
 })
 export class PacienteEpisodioRightMenuComponent implements OnInit {
@@ -18,8 +21,8 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
   resultadoBusqueda: any;
   presentaciones: any;
   presentacionSeleccionada: any = null;
-
-  constructor(private episodioService: EpisodioService) { 
+  paciente_id: any;
+  constructor(private episodioService: EpisodioService, private route: ActivatedRoute, private router: Router) { 
     this.consultaActual = null;
     this.subscription = new Subscription();
   }
@@ -32,6 +35,10 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
         this.consultaActual = episodio;
       }
     );
+
+    this.route.params.subscribe(params => {
+      this.paciente_id = params['id'];
+    })
   
     
   }
@@ -144,4 +151,11 @@ export class PacienteEpisodioRightMenuComponent implements OnInit {
     }
     console.log(this.consultaActual);
   }
+
+  redirectToFitToFly() {
+    const paciente_id  = this.consultaActual?.paciente_id;
+    this.router.navigate(['calendar/']);
+  }
+
+
 }
